@@ -12,7 +12,7 @@
 #define kScreenBoundWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenBoundHeight [UIScreen mainScreen].bounds.size.height
 
-#define animationTime 0.3
+#define animationTime 0.4
 
 @interface SSVideoPlayerView ()
 @end
