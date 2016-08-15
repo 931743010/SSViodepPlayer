@@ -30,7 +30,6 @@ typedef NS_ENUM(NSInteger,DeviceOrientation)
 
 @property(nonatomic,assign)DeviceOrientation  deviceOrientation;
 -(void)setBaseOrientationPortrait;
--(void)setBaseOrientationLandscapeLeft;
--(void)setBaseOrientationLandscapeRight;
+-(void)setBaseOrientationLandscape;
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
 @end

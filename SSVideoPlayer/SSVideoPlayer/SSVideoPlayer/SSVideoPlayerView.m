@@ -54,16 +54,11 @@
     
 }
 
--(void)setBaseOrientationLandscapeRight
+-(void)setBaseOrientationLandscape
 {
     [self fullScreenZoomFromSmall];
-    
 }
--(void)setBaseOrientationLandscapeLeft
-{
-    [self fullScreenZoomFromSmall];
- 
-}
+
 
 -(void)fullScreenZoomFromSmall
 {

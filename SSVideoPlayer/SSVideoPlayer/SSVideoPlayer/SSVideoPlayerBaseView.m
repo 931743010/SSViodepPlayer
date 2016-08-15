@@ -97,12 +97,12 @@
     }else if(interfaceOrientation==UIInterfaceOrientationLandscapeLeft && self.deviceOrientation!=OrientationLandscapeLeft){
         
         self.deviceOrientation = OrientationLandscapeLeft;
-        [self setBaseOrientationLandscapeLeft];
+        [self setBaseOrientationLandscape];
         
     }else if ( interfaceOrientation==UIInterfaceOrientationLandscapeRight && self.deviceOrientation !=OrientationLandscapeRight)
     {
         self.deviceOrientation = OrientationLandscapeRight;
-        [self setBaseOrientationLandscapeRight];
+        [self setBaseOrientationLandscape];
     }
 }
 -(void)setDeviceOrientation:(DeviceOrientation)deviceOrientation
@@ -128,11 +128,7 @@
 {
     
 }
--(void)setBaseOrientationLandscapeLeft
-{
-    
-}
--(void)setBaseOrientationLandscapeRight
+-(void)setBaseOrientationLandscape
 {
     
 }
