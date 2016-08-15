@@ -8,18 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import <AVFoundation/AVFoundation.h>
-typedef NS_ENUM(NSInteger,DeviceOrientation)
-{
-    OrientationPortrait,
-    OrientationLandscapeLeft,
-    OrientationLandscapeRight
-};
-
-@interface SSVideoPlayerView : UIView
+#import "SSVideoPlayerBaseView.h"
 
 
-@property(nonatomic,strong)NSString               * videoUrl;
+@interface SSVideoPlayerView : SSVideoPlayerBaseView
+
+
+
 +(SSVideoPlayerView*) shareSSVideoPlayerManager;
 
 @property(nonatomic,strong)UIImageView * tempImageView;
