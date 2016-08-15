@@ -8,7 +8,6 @@
 
 #import "SSVideoPlayerView.h"
 #import "Masonry.h"
-#import "SSVideoPlayerAnimation.h"
 #define kScreenBoundWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenBoundHeight [UIScreen mainScreen].bounds.size.height
 
@@ -62,8 +61,9 @@
 
 -(void)fullScreenZoomFromSmall
 {
-        [self removeFromSuperview];
+    
         [UIView animateWithDuration:animationTime animations:^{
+              [self removeFromSuperview];
               self.transform = CGAffineTransformMakeRotation(self.MP2);
         } completion:^(BOOL finished) {
             
@@ -78,8 +78,9 @@
 
 -(void)smallScreenZoomFromFull
 {
-    [self removeFromSuperview];
+   
     [UIView animateWithDuration:animationTime animations:^{
+        [self removeFromSuperview];
          self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         

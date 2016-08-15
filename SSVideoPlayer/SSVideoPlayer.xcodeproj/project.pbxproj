@@ -16,7 +16,6 @@
 		540D647A1D61AFD700486FC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540D64781D61AFD700486FC8 /* LaunchScreen.storyboard */; };
 		540D64851D61AFD700486FC8 /* SSVideoPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 540D64841D61AFD700486FC8 /* SSVideoPlayerTests.m */; };
 		540D64901D61AFD800486FC8 /* SSVideoPlayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 540D648F1D61AFD800486FC8 /* SSVideoPlayerUITests.m */; };
-		540D64A21D61B08E00486FC8 /* SSVideoPlayerAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 540D649F1D61B08E00486FC8 /* SSVideoPlayerAnimation.m */; };
 		540D64A31D61B08E00486FC8 /* SSVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 540D64A11D61B08E00486FC8 /* SSVideoPlayerView.m */; };
 		540D64A71D61B0D200486FC8 /* VideoTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 540D64A51D61B0D200486FC8 /* VideoTableCell.m */; };
 		540D64A81D61B0D200486FC8 /* VideoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540D64A61D61B0D200486FC8 /* VideoTableCell.xib */; };
@@ -58,8 +57,6 @@
 		540D648B1D61AFD700486FC8 /* SSVideoPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SSVideoPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		540D648F1D61AFD800486FC8 /* SSVideoPlayerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSVideoPlayerUITests.m; sourceTree = "<group>"; };
 		540D64911D61AFD800486FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		540D649E1D61B08E00486FC8 /* SSVideoPlayerAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSVideoPlayerAnimation.h; sourceTree = "<group>"; };
-		540D649F1D61B08E00486FC8 /* SSVideoPlayerAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSVideoPlayerAnimation.m; sourceTree = "<group>"; };
 		540D64A01D61B08E00486FC8 /* SSVideoPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSVideoPlayerView.h; sourceTree = "<group>"; };
 		540D64A11D61B08E00486FC8 /* SSVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSVideoPlayerView.m; sourceTree = "<group>"; };
 		540D64A41D61B0D200486FC8 /* VideoTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableCell.h; sourceTree = "<group>"; };
@@ -176,8 +173,6 @@
 		540D649D1D61B08E00486FC8 /* SSVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				540D649E1D61B08E00486FC8 /* SSVideoPlayerAnimation.h */,
-				540D649F1D61B08E00486FC8 /* SSVideoPlayerAnimation.m */,
 				540D64A01D61B08E00486FC8 /* SSVideoPlayerView.h */,
 				540D64A11D61B08E00486FC8 /* SSVideoPlayerView.m */,
 				540D64A91D61CF0800486FC8 /* SSVideoPlayerBaseView.h */,
@@ -381,7 +376,6 @@
 				540D64A71D61B0D200486FC8 /* VideoTableCell.m in Sources */,
 				540D64721D61AFD700486FC8 /* ViewController.m in Sources */,
 				540D64A31D61B08E00486FC8 /* SSVideoPlayerView.m in Sources */,
-				540D64A21D61B08E00486FC8 /* SSVideoPlayerAnimation.m in Sources */,
 				540D646F1D61AFD700486FC8 /* AppDelegate.m in Sources */,
 				540D64AB1D61CF0800486FC8 /* SSVideoPlayerBaseView.m in Sources */,
 				540D646C1D61AFD700486FC8 /* main.m in Sources */,
