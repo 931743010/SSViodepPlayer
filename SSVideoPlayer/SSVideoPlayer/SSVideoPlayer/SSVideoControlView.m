@@ -11,8 +11,6 @@
 @interface SSVideoControlView()
 
 @property(nonatomic,strong)UIView * bottomView;
-@property(nonatomic,assign)CGFloat width;
-@property(nonatomic,assign)CGFloat height;
 
 @end
 @implementation SSVideoControlView
@@ -21,11 +19,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blueColor];
-        self.alpha = 0.2;
-        
         [self addSubview:self.bottomView];
-        self.frame =frame;
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapControlView)];
         [self addGestureRecognizer:tapGesture];
         [self makeConstraints];
@@ -48,10 +42,6 @@
     }];
 }
 
--(void)updateFrame
-{
-  
-}
 
 -(UIView*)bottomView
 {
@@ -62,14 +52,7 @@
     }
     return _bottomView;
 }
--(CGFloat)height
-{
-    
-    return self.frame.size.height<self.frame.size.width ? self.frame.size.height : self.frame.size.width;
-}
--(CGFloat)width{
-    return self.frame.size.width>self.frame.size.height ? self.frame.size.width : self.frame.size.height;
-}
+
 
 
 

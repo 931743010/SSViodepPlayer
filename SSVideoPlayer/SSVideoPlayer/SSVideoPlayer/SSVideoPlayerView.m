@@ -55,6 +55,13 @@
 -(void)setVideoDisplay:(VideoPlayerDisplay)videoDisplay
 {
     [super setVideoDisplay:videoDisplay];
+    if (videoDisplay==ScreenFullDisplay) {
+        
+       [UIApplication  sharedApplication].statusBarHidden = YES;
+        
+    }else{
+        [UIApplication sharedApplication].statusBarHidden = NO;
+    }
     self.videoControlView.frame = self.bounds;
 
 }
@@ -85,7 +92,6 @@
             [self removeFromSuperview];
          
             self.transform = CGAffineTransformMakeRotation(self.MP2);
-           // self.videoControlView.transform =CGAffineTransformMakeRotation(self.MP2);
             
         } completion:^(BOOL finished) {
       
