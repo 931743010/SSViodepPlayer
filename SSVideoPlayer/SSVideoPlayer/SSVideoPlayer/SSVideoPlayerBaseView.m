@@ -116,7 +116,7 @@
     self.playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.videoUrl]];
     self.player = [AVPlayer playerWithPlayerItem:_playerItem];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.playerLayer.videoGravity = AVLayerVideoGravityResize;
     
     self.playerLayer.frame = self.layer.bounds;
     [self.layer addSublayer:_playerLayer];
@@ -210,7 +210,7 @@
     [self.playerLayer removeFromSuperlayer];
     self.playerLayer = nil;
     self.player = nil;
-    
+    self.isScreenBottom = NO;
     [self.playerItem removeObserver:self forKeyPath:@"status"];
     [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];

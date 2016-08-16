@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SSVideoPlayerBaseView.h"
-#define bottomHeight 40
+
 @interface SSVideoControlView : UIView
 @end

@@ -22,6 +22,7 @@
 		540D64AB1D61CF0800486FC8 /* SSVideoPlayerBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 540D64AA1D61CF0800486FC8 /* SSVideoPlayerBaseView.m */; };
 		5423B38C1D62E2B30048B205 /* VideoDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423B38B1D62E2B30048B205 /* VideoDataCenter.m */; };
 		5423B38F1D62E7C90048B205 /* SSVideoControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423B38E1D62E7C90048B205 /* SSVideoControlView.m */; };
+		5423B3911D6321960048B205 /* SSVideoBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5423B3901D6321960048B205 /* SSVideoBundle.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		5423B38B1D62E2B30048B205 /* VideoDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDataCenter.m; sourceTree = "<group>"; };
 		5423B38D1D62E7C90048B205 /* SSVideoControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSVideoControlView.h; sourceTree = "<group>"; };
 		5423B38E1D62E7C90048B205 /* SSVideoControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSVideoControlView.m; sourceTree = "<group>"; };
+		5423B3901D6321960048B205 /* SSVideoBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SSVideoBundle.bundle; sourceTree = "<group>"; };
 		B4B15A1978E9B48B2423A9FD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +189,7 @@
 				540D64AA1D61CF0800486FC8 /* SSVideoPlayerBaseView.m */,
 				5423B38D1D62E7C90048B205 /* SSVideoControlView.h */,
 				5423B38E1D62E7C90048B205 /* SSVideoControlView.m */,
+				5423B3901D6321960048B205 /* SSVideoBundle.bundle */,
 			);
 			path = SSVideoPlayer;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				540D64771D61AFD700486FC8 /* Assets.xcassets in Resources */,
 				540D64A81D61B0D200486FC8 /* VideoTableCell.xib in Resources */,
 				540D64751D61AFD700486FC8 /* Main.storyboard in Resources */,
+				5423B3911D6321960048B205 /* SSVideoBundle.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

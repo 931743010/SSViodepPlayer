@@ -12,7 +12,11 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.descLabel.backgroundColor = [UIColor clearColor];
     self.VideoImageView.userInteractionEnabled = YES;
+ 
+   
+    
     UITapGestureRecognizer *  tapImageView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImage)];
    
     [self.VideoImageView addGestureRecognizer:tapImageView];

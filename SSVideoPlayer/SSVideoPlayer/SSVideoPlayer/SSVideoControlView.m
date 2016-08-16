@@ -12,6 +12,7 @@
 
 @property(nonatomic,strong)UIView * bottomView;
 
+
 @end
 @implementation SSVideoControlView
 
@@ -20,6 +21,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.bottomView];
+       
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapControlView)];
         [self addGestureRecognizer:tapGesture];
         [self makeConstraints];
@@ -32,6 +34,7 @@
 {
     
     
+    
 }
 -(void)makeConstraints
 {
@@ -40,6 +43,7 @@
         make.bottom.left.right.mas_offset(0);
         make.height.mas_offset(40);
     }];
+   
 }
 
 

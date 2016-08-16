@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #define SSVideoScreenBoundWidth [UIScreen mainScreen].bounds.size.width
 #define SSVideoScreenBoundHeight [UIScreen mainScreen].bounds.size.height
+#define SSVideoImageName(name) [NSString stringWithFormat:@"SSVideoBundle.bundle/%@",name]
 //当前屏幕状态
 typedef NS_ENUM(NSInteger,DeviceOrientation)
 {
