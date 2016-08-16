@@ -8,6 +8,12 @@
 
 #import "SSVideoPlayerBaseView.h"
 
+@interface SSVideoPlayerBaseView ()
+
+@property(nonatomic,assign)CGFloat tableCellHeight;
+
+@end
+
 @implementation SSVideoPlayerBaseView
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -26,6 +32,7 @@
     self.playerLayer.frame = self.bounds;
     
 }
+//********* set 方法 *******************
 -(void)setVideoUrl:(NSString *)videoUrl
 {
     _videoUrl = videoUrl;
@@ -33,6 +40,14 @@
     [self initPlayerLayer];
     
 }
+-(void)setTableView:(UITableView *)tableView
+{
+    _tableView = tableView;
+    
+    [tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+    
+}
+//********* set 方法 *******************
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     AVPlayerItem * playerItem = (AVPlayerItem*) object;
@@ -47,9 +62,32 @@
             
             NSLog(@"播放失败 = %@",playerItem.error);
         }
+    }else if ([keyPath isEqualToString:@"contentOffset"]){
+        
+        if (self.deviceOrientation == OrientationPortrait) {
+            [self monitorTableViewContenOffset];
+            
+        }
+        
     }
 }
+-(void)monitorTableViewContenOffset
+{
+    CGRect rect = [self.tableView rectForRowAtIndexPath:self.indexPath];
+    CGRect rectFormSuperview = [self.tableView convertRect:rect toView:[self.tableView superview]];
+    CGFloat rectY = rectFormSuperview.origin.y-64;
+    
+    //一旦 滑动的位置大于 cell的 2/3 那么最小化
+    
+    if (rectY<0 && -rectY>self.tableCellHeight*(2.0/3.0)) {
+        [self minVideoPlayer];
+        self.videoDisplay = ScreenMinDisplay;
+    }
+    
+    NSLog(@"rectInSuperview = %f",rectY);
+}
 
+//初始化播放器
 -(void)initPlayerLayer
 {
     self.playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.videoUrl]];
@@ -64,7 +102,7 @@
     
     [self addNotification];
     
-    [self.player play];
+    [self play];
     [self setAutoresizesSubviews:NO];
     
     
@@ -86,7 +124,6 @@
 }
 -(void)onDeviceOrientationNotification
 {
-    
     UIDeviceOrientation orientation             = [UIDevice currentDevice].orientation;
     UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
     if (interfaceOrientation==UIInterfaceOrientationPortrait && self.deviceOrientation!=OrientationPortrait) {
@@ -110,20 +147,62 @@
     _deviceOrientation = deviceOrientation;
     
     if (deviceOrientation==OrientationLandscapeLeft) {
+        self.videoDisplay = ScreenFullDisplay;
         self.MP2 = -M_PI_2;
     }
     if (deviceOrientation==OrientationLandscapeRight) {
-        
+        self.videoDisplay = ScreenFullDisplay;
         self.MP2 = M_PI_2;
+    }
+    if (deviceOrientation==OrientationPortrait) {
+        self.videoDisplay = ScreenCellDisplay;
     }
     
 }
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl
 {
+    if (self.playerLayer) {
+        [self resetVideoPlayer];
+    }
+    
+    self.videoDisplay = ScreenCellDisplay;
+    
     self.tableView      =  tableView;
     self.tableViewCell  =  cell;
     self.indexPath      =  indexPath;
+    self.tableCellHeight = cell.frame.size.height;
 }
+
+-(void)resetVideoPlayer
+{
+    [self pause];
+    [self.playerLayer removeFromSuperlayer];
+    self.playerLayer = nil;
+    self.player = nil;
+    
+    [self.playerItem removeObserver:self forKeyPath:@"status"];
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    self.playerItem = nil;
+    
+    self.tableViewCell = nil;
+    self.tableView = nil;
+    
+}
+-(void)play{
+      [self.player play];
+}
+
+-(void)pause{
+    [self.player pause];
+}
+
+-(void)minVideoPlayer
+{
+    
+}
+
 -(void)setBaseOrientationPortrait
 {
     

@@ -8,12 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+//当前屏幕状态
 typedef NS_ENUM(NSInteger,DeviceOrientation)
 {
     OrientationPortrait,
     OrientationLandscapeLeft,
     OrientationLandscapeRight
 };
+//视频显示状态
+typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
+    ScreenCellDisplay,//cell
+    ScreenFullDisplay,//全屏
+    ScreenMinDisplay//最小化
+    
+};
+
 @interface SSVideoPlayerBaseView : UIView
 
 @property(nonatomic,strong)AVPlayerItem     * playerItem;
@@ -29,7 +38,9 @@ typedef NS_ENUM(NSInteger,DeviceOrientation)
 @property(nonatomic,strong)NSIndexPath            * indexPath;
 
 @property(nonatomic,assign)DeviceOrientation  deviceOrientation;
+@property(nonatomic,assign)VideoPlayerDisplay videoDisplay;
 -(void)setBaseOrientationPortrait;
 -(void)setBaseOrientationLandscape;
+-(void)minVideoPlayer;
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
 @end
