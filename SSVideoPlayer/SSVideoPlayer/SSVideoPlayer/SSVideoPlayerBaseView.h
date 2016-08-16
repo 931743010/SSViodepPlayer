@@ -18,13 +18,13 @@ typedef NS_ENUM(NSInteger,DeviceOrientation)
     OrientationLandscapeRight
 };
 //视频显示状态
-/*
+
 typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
     ScreenCellDisplay,//cell
     ScreenFullDisplay,//全屏
     ScreenMinDisplay//最小化
     
-};*/
+};
 
 @interface SSVideoPlayerBaseView : UIView
 
@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 @property(nonatomic,strong)NSIndexPath            * indexPath;
 
 @property(nonatomic,assign)DeviceOrientation  deviceOrientation;
-//@property(nonatomic,assign)VideoPlayerDisplay videoDisplay;
+@property(nonatomic,assign)VideoPlayerDisplay videoDisplay;
 -(void)setBaseOrientationPortrait;
 -(void)setBaseOrientationLandscape;
 -(void)minVideoPlayer;

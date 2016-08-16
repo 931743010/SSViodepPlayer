@@ -21,6 +21,7 @@
 		540D64A81D61B0D200486FC8 /* VideoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540D64A61D61B0D200486FC8 /* VideoTableCell.xib */; };
 		540D64AB1D61CF0800486FC8 /* SSVideoPlayerBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 540D64AA1D61CF0800486FC8 /* SSVideoPlayerBaseView.m */; };
 		5423B38C1D62E2B30048B205 /* VideoDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423B38B1D62E2B30048B205 /* VideoDataCenter.m */; };
+		5423B38F1D62E7C90048B205 /* SSVideoControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423B38E1D62E7C90048B205 /* SSVideoControlView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		5417D4D0726E775D3073631D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5423B38A1D62E2B30048B205 /* VideoDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDataCenter.h; sourceTree = "<group>"; };
 		5423B38B1D62E2B30048B205 /* VideoDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDataCenter.m; sourceTree = "<group>"; };
+		5423B38D1D62E7C90048B205 /* SSVideoControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSVideoControlView.h; sourceTree = "<group>"; };
+		5423B38E1D62E7C90048B205 /* SSVideoControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSVideoControlView.m; sourceTree = "<group>"; };
 		B4B15A1978E9B48B2423A9FD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +185,8 @@
 				540D64A11D61B08E00486FC8 /* SSVideoPlayerView.m */,
 				540D64A91D61CF0800486FC8 /* SSVideoPlayerBaseView.h */,
 				540D64AA1D61CF0800486FC8 /* SSVideoPlayerBaseView.m */,
+				5423B38D1D62E7C90048B205 /* SSVideoControlView.h */,
+				5423B38E1D62E7C90048B205 /* SSVideoControlView.m */,
 			);
 			path = SSVideoPlayer;
 			sourceTree = "<group>";
@@ -378,6 +383,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5423B38F1D62E7C90048B205 /* SSVideoControlView.m in Sources */,
 				540D64A71D61B0D200486FC8 /* VideoTableCell.m in Sources */,
 				540D64721D61AFD700486FC8 /* ViewController.m in Sources */,
 				5423B38C1D62E2B30048B205 /* VideoDataCenter.m in Sources */,

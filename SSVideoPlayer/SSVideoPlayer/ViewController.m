@@ -10,9 +10,11 @@
 #import "VideoTableCell.h"
 #import "SSVideoPlayerView.h"
 #import "Masonry.h"
+#import "VideoDataCenter.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,VideoTableCellDelegate>
 @property(nonatomic,strong)UITableView * tableView;
+@property(nonatomic,strong)VideoDataCenter * dataCenter;
 @end
 
 @implementation ViewController
@@ -31,6 +33,12 @@
     
     UINib * nib = [UINib nibWithNibName:@"VideoTableCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"indetifier"];
+    
+    self.dataCenter = [[VideoDataCenter alloc] init];
+    [self.dataCenter requestVideoList:^(NSString *error) {
+        
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,9 +63,11 @@
      SSVideoPlayerView * videoPlayer = [SSVideoPlayerView shareSSVideoPlayerManager];
      
      UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
-     
-     
-     [videoPlayer initViewWithTableView:self.tableView cell:cell indexPath:indexPath videoUrl:@"http://59.108.200.43/mp4files/B133000003BCF2E6/baobab.wdjcdn.com/14557771465491(9).mp4"];
+    
+    NSDictionary * dic = [self.dataCenter.videoListArray objectAtIndex:indexPath.row];
+    
+    NSString * url = [dic valueForKey:@"mp4_url"];
+     [videoPlayer initViewWithTableView:self.tableView cell:cell indexPath:indexPath videoUrl:url];
     
     
 }
@@ -71,7 +81,7 @@
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 20;
+    return self.dataCenter.videoListArray.count;
 }
 
 @end

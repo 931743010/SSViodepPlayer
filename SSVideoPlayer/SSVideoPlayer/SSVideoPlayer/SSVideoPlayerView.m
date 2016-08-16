@@ -8,12 +8,13 @@
 
 #import "SSVideoPlayerView.h"
 #import "Masonry.h"
+#import "SSVideoControlView.h"
 
 
 #define animationTime 0.4
 
 @interface SSVideoPlayerView ()
-
+@property(nonatomic,strong)SSVideoControlView * videoControlView;
 @end
 @implementation SSVideoPlayerView
 
@@ -51,6 +52,12 @@
 {
     [self fullScreenZoomFromSmall];
 }
+-(void)setVideoDisplay:(VideoPlayerDisplay)videoDisplay
+{
+    [super setVideoDisplay:videoDisplay];
+    self.videoControlView.frame = self.bounds;
+    
+}
 
 //最小化 右下角
 -(void)minVideoPlayer
@@ -66,7 +73,7 @@
     self.frame = CGRectMake(width, kScreenBoundHeight-height, width, height);
     self.playerLayer.frame = self.bounds;
     [[UIApplication sharedApplication].keyWindow addSubview:self];
- 
+    self.videoDisplay = ScreenMinDisplay;
     self.isScreenBottom = YES;
 }
 
@@ -77,6 +84,7 @@
      [UIView animateWithDuration:animationTime animations:^{
             [self removeFromSuperview];
             self.transform = CGAffineTransformMakeRotation(self.MP2);
+            self.videoControlView.transform =CGAffineTransformMakeRotation(self.MP2);
             
         } completion:^(BOOL finished) {
       
@@ -84,29 +92,31 @@
     
      self.frame = CGRectMake(0, 0, kScreenBoundWidth, kScreenBoundHeight);
      self.playerLayer.frame =  CGRectMake(0,0, kScreenBoundHeight,kScreenBoundWidth);
-     [[UIApplication sharedApplication].keyWindow addSubview:self];
-   
     
+     [[UIApplication sharedApplication].keyWindow addSubview:self];
+  
+     self.videoDisplay = ScreenFullDisplay;
 }
 
 
-//全屏->小屏
+//全屏->小屏 cell上播放
 -(void)smallScreenZoomFromFull
 {
   
     [UIView animateWithDuration:animationTime animations:^{
         [self removeFromSuperview];
          self.transform = CGAffineTransformIdentity;
+        self.videoControlView.transform =CGAffineTransformIdentity;
+   
     } completion:^(BOOL finished) {
         
     }];
-    self.frame = CGRectMake(0, 0, kScreenBoundWidth, kScreenBoundHeight);
-    self.playerLayer.frame =  CGRectMake(0,0, kScreenBoundWidth,kScreenBoundHeight);
-    
     UIImageView * imageView = [self currentPlayerImageView];
     [self addSSVideoPlayerView:imageView];
     
- 
+   
+    
+    self.videoDisplay = ScreenCellDisplay;
 }
 
 //在tableView上初始化 播放器
@@ -114,11 +124,15 @@
 {
     [super initViewWithTableView:tableView cell:cell indexPath:indexPath videoUrl:videoUrl];
     
+    //[self videoControlView];
+    
     UIImageView * imageView = [self currentPlayerImageView];
     
     [self addSSVideoPlayerView:imageView];
     
     self.videoUrl = videoUrl;
+    
+    self.videoControlView.hidden = NO;
 }
 //获取当前的播放器的subView
 -(UIImageView*)currentPlayerImageView
@@ -135,9 +149,23 @@
     [imageView bringSubviewToFront:self];
     
     self.frame = imageView.bounds;
+    self.playerLayer.frame = self.frame;
+    
 }
 
 
+-(SSVideoControlView*)videoControlView
+{
+    if (!_videoControlView) {
+        
+        _videoControlView = [SSVideoControlView new];
+        [self addSubview:_videoControlView];
+        
+        _videoControlView.frame = self.playerLayer.frame;
+    }
+    
+    return _videoControlView;
+}
 
 
 

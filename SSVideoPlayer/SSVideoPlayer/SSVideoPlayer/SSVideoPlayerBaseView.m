@@ -47,6 +47,12 @@
     [tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
 }
+
+-(void)setVideoDisplay:(VideoPlayerDisplay)videoDisplay
+{
+    _videoDisplay = videoDisplay;
+    
+}
 //********* set 方法 *******************
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {

@@ -10,4 +10,6 @@
 
 @interface VideoDataCenter : NSObject
 
+@property(nonatomic,strong)NSArray * videoListArray;
+-(void)requestVideoList:(void(^)(NSString * error)) complate;
 @end
