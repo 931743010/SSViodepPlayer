@@ -74,7 +74,7 @@
 -(void)fullScreenZoomFromSmall
 {
     
-        [UIView animateWithDuration:animationTime animations:^{
+     [UIView animateWithDuration:animationTime animations:^{
             [self removeFromSuperview];
             self.transform = CGAffineTransformMakeRotation(self.MP2);
             
