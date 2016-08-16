@@ -12,6 +12,7 @@
 #import "Masonry.h"
 #import "VideoDataCenter.h"
 #import "MJRefresh.h"
+#import "UIKit+AFNetworking.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,VideoTableCellDelegate>
 @property(nonatomic,strong)UITableView * tableView;
@@ -90,8 +91,11 @@
     cell.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSDictionary * dic = [self.dataSourceMutableArray objectAtIndex:indexPath.row];
+    NSString * url = [dic valueForKey:@"cover"];
     cell.descLabel.text = [dic valueForKey:@"title"];
     cell.descLabel.textColor = [UIColor blackColor];
+    [cell.VideoImageView setImageWithURL:[NSURL URLWithString:url]];
+    
     
     return cell;
 }

@@ -56,8 +56,7 @@
 {
     [super setVideoDisplay:videoDisplay];
     self.videoControlView.frame = self.bounds;
-    
-    
+
 }
 
 //最小化 右下角
@@ -69,31 +68,33 @@
 
      [self removeFromSuperview];
      self.transform = CGAffineTransformIdentity;
-    CGFloat width = kScreenBoundWidth/2;
+    CGFloat width = SSVideoScreenBoundWidth/2;
     CGFloat height = width*(9.0/16.0);
-    self.frame = CGRectMake(width, kScreenBoundHeight-height, width, height);
+    self.frame = CGRectMake(width, SSVideoScreenBoundHeight-height, width, height);
     self.playerLayer.frame = self.bounds;
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     self.videoDisplay = ScreenMinDisplay;
     self.isScreenBottom = YES;
 }
 
-//小屏幕 -> 全屏
+//cell屏幕 -> 全屏
 -(void)fullScreenZoomFromSmall
 {
     
      [UIView animateWithDuration:animationTime animations:^{
             [self removeFromSuperview];
+         
             self.transform = CGAffineTransformMakeRotation(self.MP2);
-            self.videoControlView.transform =CGAffineTransformMakeRotation(self.MP2);
+           // self.videoControlView.transform =CGAffineTransformMakeRotation(self.MP2);
             
         } completion:^(BOOL finished) {
       
         }];
     
-     self.frame = CGRectMake(0, 0, kScreenBoundWidth, kScreenBoundHeight);
-     self.playerLayer.frame =  CGRectMake(0,0, kScreenBoundHeight,kScreenBoundWidth);
+     self.frame = CGRectMake(0, 0, SSVideoScreenBoundWidth, SSVideoScreenBoundHeight);
+     self.playerLayer.frame =  CGRectMake(0,0, SSVideoScreenBoundHeight,SSVideoScreenBoundWidth);
     
+   
      [[UIApplication sharedApplication].keyWindow addSubview:self];
   
      self.videoDisplay = ScreenFullDisplay;
@@ -153,16 +154,20 @@
     self.playerLayer.frame = self.frame;
     
 }
-
+-(void)resetVideoPlayer
+{
+    [super resetVideoPlayer];
+    [self.videoControlView removeFromSuperview];
+    self.videoControlView = nil;
+}
 
 -(SSVideoControlView*)videoControlView
 {
     if (!_videoControlView) {
         
-        _videoControlView = [SSVideoControlView new];
+        _videoControlView = [[SSVideoControlView alloc] initWithFrame:self.playerLayer.frame];
         [self addSubview:_videoControlView];
-        
-        _videoControlView.frame = self.playerLayer.frame;
+      
     }
     
     return _videoControlView;

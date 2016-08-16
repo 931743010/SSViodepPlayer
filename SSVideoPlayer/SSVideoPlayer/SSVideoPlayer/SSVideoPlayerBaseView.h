@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#define kScreenBoundWidth [UIScreen mainScreen].bounds.size.width
-#define kScreenBoundHeight [UIScreen mainScreen].bounds.size.height
+#define SSVideoScreenBoundWidth [UIScreen mainScreen].bounds.size.width
+#define SSVideoScreenBoundHeight [UIScreen mainScreen].bounds.size.height
 //当前屏幕状态
 typedef NS_ENUM(NSInteger,DeviceOrientation)
 {
@@ -47,5 +47,6 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 -(void)setBaseOrientationPortrait;
 -(void)setBaseOrientationLandscape;
 -(void)minVideoPlayer;
+-(void)resetVideoPlayer;
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
 @end

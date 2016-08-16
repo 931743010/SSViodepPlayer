@@ -93,7 +93,7 @@
     if (rectY<0 && -rectY>self.tableCellHeight*(2.0/3.0)) {
         [self minVideoPlayer];
        
-    }else if (kScreenBoundHeight-64<rectFormSuperview.origin.y){
+    }else if (SSVideoScreenBoundHeight-64<rectFormSuperview.origin.y){
         [self minVideoPlayer];
      
     }else{
