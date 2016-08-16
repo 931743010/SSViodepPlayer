@@ -57,6 +57,7 @@
     [super setVideoDisplay:videoDisplay];
     self.videoControlView.frame = self.bounds;
     
+    
 }
 
 //最小化 右下角

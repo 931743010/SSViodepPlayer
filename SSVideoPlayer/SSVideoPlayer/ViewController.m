@@ -11,10 +11,14 @@
 #import "SSVideoPlayerView.h"
 #import "Masonry.h"
 #import "VideoDataCenter.h"
+#import "MJRefresh.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,VideoTableCellDelegate>
 @property(nonatomic,strong)UITableView * tableView;
+@property(nonatomic,strong)NSMutableArray * dataSourceMutableArray;
 @property(nonatomic,strong)VideoDataCenter * dataCenter;
+@property(nonatomic,assign)NSInteger status;
+@property(nonatomic,assign)BOOL isRefreshing;
 @end
 
 @implementation ViewController
@@ -25,6 +29,7 @@
     _tableView.rowHeight = 240;
     _tableView.dataSource = self;
     _tableView.delegate   = self;
+    self.dataSourceMutableArray = [NSMutableArray array];
     [self.view addSubview:_tableView];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -35,11 +40,44 @@
     [self.tableView registerNib:nib forCellReuseIdentifier:@"indetifier"];
     
     self.dataCenter = [[VideoDataCenter alloc] init];
-    [self.dataCenter requestVideoList:^(NSString *error) {
+   
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    self.tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        if (weakSelf.isRefreshing) {
+          
+            return ;
+        }
+        [weakSelf.dataCenter requestVideoList:^(NSString *error) {
+           
+            [weakSelf.dataSourceMutableArray removeAllObjects];
+            [weakSelf.dataSourceMutableArray addObjectsFromArray:weakSelf.dataCenter.videoListArray];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+            
+        }];
         
-        [self.tableView reloadData];
     }];
+    
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+       
+        if (weakSelf.isRefreshing) {
+            return ;
+        }
+        
+        [weakSelf.dataCenter requestVideoList:^(NSString *error) {
+            
+            [weakSelf.dataSourceMutableArray addObjectsFromArray:weakSelf.dataCenter.videoListArray];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+            
+        }];
+        
+    }];
+     [self.tableView.mj_header beginRefreshing];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -51,6 +89,9 @@
     cell.indexPath = indexPath;
     cell.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSDictionary * dic = [self.dataSourceMutableArray objectAtIndex:indexPath.row];
+    cell.descLabel.text = [dic valueForKey:@"title"];
+    cell.descLabel.textColor = [UIColor blackColor];
     
     return cell;
 }
@@ -64,7 +105,7 @@
      
      UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    NSDictionary * dic = [self.dataCenter.videoListArray objectAtIndex:indexPath.row];
+    NSDictionary * dic = [self.dataSourceMutableArray objectAtIndex:indexPath.row];
     
     NSString * url = [dic valueForKey:@"mp4_url"];
      [videoPlayer initViewWithTableView:self.tableView cell:cell indexPath:indexPath videoUrl:url];
@@ -81,7 +122,7 @@
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return self.dataCenter.videoListArray.count;
+    return self.dataSourceMutableArray.count;
 }
 
 @end

@@ -22,23 +22,16 @@
         self.backgroundColor = [UIColor blueColor];
         self.alpha = 0.2;
         
-       // [self addSubview:self.bottomView];
-        //[self makeConstraints];
+        [self addSubview:self.bottomView];
+       
         
     }
     
     return self;
 }
 
--(void)makeConstraints
-{
-    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.bottom.left.right.mas_offset(0);
-        make.height.mas_offset(40);
-    }];
-    
-}
+
+
 
 -(UIView*)bottomView
 {

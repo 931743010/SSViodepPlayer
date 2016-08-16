@@ -41,6 +41,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="VideoImageView" destination="LyW-lC-FF0" id="CvB-cc-zlr"/>
+                <outlet property="descLabel" destination="TTs-8s-1iP" id="R0Z-S2-APx"/>
             </connections>
             <point key="canvasLocation" x="362" y="374"/>
         </tableViewCell>

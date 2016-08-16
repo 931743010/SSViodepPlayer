@@ -20,7 +20,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+         [self setAutoresizesSubviews:NO];
     }
     
     return self;
@@ -79,10 +79,16 @@
 }
 -(void)monitorTableViewContenOffset
 {
+    
     CGRect rect = [self.tableView rectForRowAtIndexPath:self.indexPath];
     CGRect rectFormSuperview = [self.tableView convertRect:rect toView:[self.tableView superview]];
     CGFloat rectY = rectFormSuperview.origin.y-64;
     
+    
+    if ([[NSValue valueWithCGRect:rect] isEqualToValue:[NSValue valueWithCGRect:CGRectZero]]) {
+        
+        return;
+    }
     //一旦 滑动的位置大于 cell的 2/3 那么最小化
     if (rectY<0 && -rectY>self.tableCellHeight*(2.0/3.0)) {
         [self minVideoPlayer];
