@@ -78,13 +78,24 @@
     CGFloat rectY = rectFormSuperview.origin.y-64;
     
     //一旦 滑动的位置大于 cell的 2/3 那么最小化
-    
     if (rectY<0 && -rectY>self.tableCellHeight*(2.0/3.0)) {
         [self minVideoPlayer];
-        self.videoDisplay = ScreenMinDisplay;
+       
+    }else if (kScreenBoundHeight-64<rectFormSuperview.origin.y){
+        [self minVideoPlayer];
+     
+    }else{
+      
+        if (!self.isScreenBottom) {
+            return;
+        }
+        self.deviceOrientation = OrientationPortrait;
+        [self setBaseOrientationPortrait];
+        self.isScreenBottom = NO;
+        
+        
     }
     
-    NSLog(@"rectInSuperview = %f",rectY);
 }
 
 //初始化播放器
@@ -126,6 +137,16 @@
 {
     UIDeviceOrientation orientation             = [UIDevice currentDevice].orientation;
     UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
+    [self setInterfaceOrientation:interfaceOrientation];
+}
+
+-(void)setInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    
+    if (self.isScreenBottom) {
+        return;
+    }
+    
     if (interfaceOrientation==UIInterfaceOrientationPortrait && self.deviceOrientation!=OrientationPortrait) {
         
         self.deviceOrientation = OrientationPortrait;
@@ -142,21 +163,21 @@
         [self setBaseOrientationLandscape];
     }
 }
+
 -(void)setDeviceOrientation:(DeviceOrientation)deviceOrientation
 {
     _deviceOrientation = deviceOrientation;
     
     if (deviceOrientation==OrientationLandscapeLeft) {
-        self.videoDisplay = ScreenFullDisplay;
+    
         self.MP2 = -M_PI_2;
     }
     if (deviceOrientation==OrientationLandscapeRight) {
-        self.videoDisplay = ScreenFullDisplay;
+
         self.MP2 = M_PI_2;
     }
-    if (deviceOrientation==OrientationPortrait) {
-        self.videoDisplay = ScreenCellDisplay;
-    }
+  
+    
     
 }
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl
@@ -164,8 +185,6 @@
     if (self.playerLayer) {
         [self resetVideoPlayer];
     }
-    
-    self.videoDisplay = ScreenCellDisplay;
     
     self.tableView      =  tableView;
     self.tableViewCell  =  cell;

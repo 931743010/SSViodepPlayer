@@ -13,6 +13,7 @@
 #define animationTime 0.4
 
 @interface SSVideoPlayerView ()
+
 @end
 @implementation SSVideoPlayerView
 
@@ -41,6 +42,7 @@
 }
 -(void)setBaseOrientationPortrait
 {
+    
     [self smallScreenZoomFromFull];
     
 }
@@ -53,9 +55,10 @@
 //最小化 右下角
 -(void)minVideoPlayer
 {
-    
-    if (self.videoDisplay == ScreenMinDisplay) return;
-    
+    if (self.isScreenBottom) {
+        return;
+    }
+
      [self removeFromSuperview];
      self.transform = CGAffineTransformIdentity;
     CGFloat width = kScreenBoundWidth/2;
@@ -63,28 +66,26 @@
     self.frame = CGRectMake(width, kScreenBoundHeight-height, width, height);
     self.playerLayer.frame = self.bounds;
     [[UIApplication sharedApplication].keyWindow addSubview:self];
-    
-    
+ 
+    self.isScreenBottom = YES;
 }
 
 //小屏幕 -> 全屏
 -(void)fullScreenZoomFromSmall
 {
+    
         [UIView animateWithDuration:animationTime animations:^{
             [self removeFromSuperview];
             self.transform = CGAffineTransformMakeRotation(self.MP2);
-    
             
         } completion:^(BOOL finished) {
       
-           
         }];
     
-   
      self.frame = CGRectMake(0, 0, kScreenBoundWidth, kScreenBoundHeight);
      self.playerLayer.frame =  CGRectMake(0,0, kScreenBoundHeight,kScreenBoundWidth);
-    
      [[UIApplication sharedApplication].keyWindow addSubview:self];
+   
     
 }
 
@@ -92,7 +93,7 @@
 //全屏->小屏
 -(void)smallScreenZoomFromFull
 {
-   
+  
     [UIView animateWithDuration:animationTime animations:^{
         [self removeFromSuperview];
          self.transform = CGAffineTransformIdentity;

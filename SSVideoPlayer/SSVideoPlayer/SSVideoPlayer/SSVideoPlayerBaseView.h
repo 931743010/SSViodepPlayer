@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#define kScreenBoundWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenBoundHeight [UIScreen mainScreen].bounds.size.height
 //当前屏幕状态
 typedef NS_ENUM(NSInteger,DeviceOrientation)
 {
@@ -16,14 +18,17 @@ typedef NS_ENUM(NSInteger,DeviceOrientation)
     OrientationLandscapeRight
 };
 //视频显示状态
+/*
 typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
     ScreenCellDisplay,//cell
     ScreenFullDisplay,//全屏
     ScreenMinDisplay//最小化
     
-};
+};*/
 
 @interface SSVideoPlayerBaseView : UIView
+
+@property(nonatomic,assign)BOOL isScreenBottom;//是否在底部显示
 
 @property(nonatomic,strong)AVPlayerItem     * playerItem;
 @property(nonatomic,strong)AVPlayerLayer    * playerLayer;
@@ -38,7 +43,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 @property(nonatomic,strong)NSIndexPath            * indexPath;
 
 @property(nonatomic,assign)DeviceOrientation  deviceOrientation;
-@property(nonatomic,assign)VideoPlayerDisplay videoDisplay;
+//@property(nonatomic,assign)VideoPlayerDisplay videoDisplay;
 -(void)setBaseOrientationPortrait;
 -(void)setBaseOrientationLandscape;
 -(void)minVideoPlayer;

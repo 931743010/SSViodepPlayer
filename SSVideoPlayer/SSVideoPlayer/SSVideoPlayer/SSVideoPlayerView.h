@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "SSVideoPlayerBaseView.h"
-#define kScreenBoundWidth [UIScreen mainScreen].bounds.size.width
-#define kScreenBoundHeight [UIScreen mainScreen].bounds.size.height
+
 
 @interface SSVideoPlayerView : SSVideoPlayerBaseView
 
