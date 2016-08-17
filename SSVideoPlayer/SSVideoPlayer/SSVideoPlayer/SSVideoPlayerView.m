@@ -217,11 +217,29 @@
     }
 }
 
+#pragma mark 返回按钮事件
 -(void)goBackAction
 {
     if (self.videoDisplay) {
         [super setInterfaceOrientation:UIInterfaceOrientationPortrait];
     }
+    
+}
+
+#pragma mark slider开始滑动
+-(void)sliderBeginAction:(UISlider *)slider
+{
+    
+}
+
+#pragma mark slider滑动中
+-(void)sliderUpdateAction:(UISlider *)slider
+{
+    
+}
+#pragma mark slider结束滑动
+-(void)sliderEndAction:(UISlider *)slider
+{
     
 }
 

@@ -14,6 +14,13 @@
 -(void)zoomAction:(UIButton*) button;
 -(void)goBackAction;
 
+
+-(void)sliderBeginAction:(UISlider*) slider;
+
+-(void)sliderUpdateAction:(UISlider*) slider;
+
+-(void)sliderEndAction:(UISlider*) slider;
+
 @end
 
 @interface SSVideoControlView : UIView

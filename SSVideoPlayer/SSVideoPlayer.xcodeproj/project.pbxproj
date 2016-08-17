@@ -183,10 +183,10 @@
 		540D649D1D61B08E00486FC8 /* SSVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				540D64A01D61B08E00486FC8 /* SSVideoPlayerView.h */,
-				540D64A11D61B08E00486FC8 /* SSVideoPlayerView.m */,
 				540D64A91D61CF0800486FC8 /* SSVideoPlayerBaseView.h */,
 				540D64AA1D61CF0800486FC8 /* SSVideoPlayerBaseView.m */,
+				540D64A01D61B08E00486FC8 /* SSVideoPlayerView.h */,
+				540D64A11D61B08E00486FC8 /* SSVideoPlayerView.m */,
 				5423B38D1D62E7C90048B205 /* SSVideoControlView.h */,
 				5423B38E1D62E7C90048B205 /* SSVideoControlView.m */,
 				5423B3901D6321960048B205 /* SSVideoBundle.bundle */,

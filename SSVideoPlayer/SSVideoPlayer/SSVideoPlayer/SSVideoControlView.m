@@ -147,9 +147,9 @@
         _slider = [[UISlider alloc] init];
         [_slider setThumbImage:[UIImage imageNamed:SSVideoImageName(@"SSPlayer_slider")] forState:UIControlStateNormal];
         _slider.maximumValue    = 1;
-       /* [_slider addTarget:self action:@selector(updateSliderAction:) forControlEvents:UIControlEventValueChanged];
+        [_slider addTarget:self action:@selector(updateSliderAction:) forControlEvents:UIControlEventValueChanged];
         [_slider addTarget:self action:@selector(beginSliderAction:) forControlEvents:UIControlEventTouchDown];
-        [_slider addTarget:self action:@selector(endSliderAction:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchCancel | UIControlEventTouchUpOutside];*/
+        [_slider addTarget:self action:@selector(endSliderAction:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchCancel | UIControlEventTouchUpOutside];
         
         _slider.minimumTrackTintColor = [UIColor redColor];
         _slider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
@@ -258,6 +258,33 @@
     
     return _ssvideoBackView;
 }
+
+#pragma mark 进度条开始滑动
+-(void)beginSliderAction:(UISlider*) slider
+{
+    if ([self.delegate respondsToSelector:@selector(sliderBeginAction:)]) {
+        
+        [self.delegate performSelector:@selector(sliderBeginAction:) withObject:slider];
+    }
+    
+}
+#pragma mark 进度条滑动中
+-(void)updateSliderAction:(UISlider*) slider
+{
+    if ([self.delegate respondsToSelector:@selector(sliderUpdateAction:)]) {
+        [self.delegate performSelector:@selector(sliderUpdateAction:) withObject:slider];
+    }
+}
+
+#pragma mark 结束滑动
+-(void)endSliderAction:(UISlider*) slider
+{
+    if ([self.delegate respondsToSelector:@selector(sliderEndAction:)]) {
+        [self.delegate performSelector:@selector(sliderEndAction:) withObject:slider];
+    }
+}
+
+
 #pragma mark 返回按钮
 -(void)goBackViewAction
 {
