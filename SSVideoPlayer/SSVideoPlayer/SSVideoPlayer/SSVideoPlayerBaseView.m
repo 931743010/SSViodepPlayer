@@ -75,7 +75,25 @@
             
         }
         
+    }else if ([keyPath isEqualToString:@"playbackBufferEmpty"])
+    {
+        
+        
+    }else if ([keyPath isEqualToString:@"loadedTimeRanges"])
+    {
+        NSTimeInterval  timeInterval = [self availableDuration];
+        CMTime duration             = self.playerItem.duration;
+        CGFloat totalDuration       = CMTimeGetSeconds(duration);
+        
+        CGFloat progress = timeInterval/totalDuration;
+        
+        [self cacheProgress:progress];
+
     }
+}
+-(void)cacheProgress:(CGFloat) progress
+{
+    
 }
 -(void)monitorTableViewContenOffset
 {
@@ -143,6 +161,10 @@
     
     // 监听 status 属性变化
     [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    // 监听缓存
+    [self.playerItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
+    
+     [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
     
 }
 -(void)onDeviceOrientationNotification
@@ -212,7 +234,10 @@
     self.player = nil;
     self.isScreenBottom = NO;
     [self.playerItem removeObserver:self forKeyPath:@"status"];
+    [self.playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+    [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
     [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
+ 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.playerItem = nil;
@@ -227,6 +252,24 @@
 
 -(void)pause{
     [self.player pause];
+}
+
+#pragma mark 计算视频缓冲进度
+-(NSTimeInterval)availableDuration
+{
+    NSArray * loadedTimeRanges = [[self.player currentItem] loadedTimeRanges];
+    
+    
+    CMTimeRange timeRanges     = [loadedTimeRanges.firstObject CMTimeRangeValue];
+    
+    float startSeconds         = CMTimeGetSeconds(timeRanges.start);
+    
+    float duiationSeconds      = CMTimeGetSeconds(timeRanges.duration);
+    
+    NSTimeInterval result      = startSeconds+duiationSeconds;
+    
+    return result;
+    
 }
 
 -(void)minVideoPlayer

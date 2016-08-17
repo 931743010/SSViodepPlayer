@@ -10,11 +10,10 @@
 #import "Masonry.h"
 #import "SSVideoControlView.h"
 
-
 #define animationTime 0.4
 
 @interface SSVideoPlayerView ()
-@property(nonatomic,strong)SSVideoControlView * videoControlView;
+@property(nonatomic,strong) SSVideoControlView * videoControlView;
 @end
 @implementation SSVideoPlayerView
 
@@ -122,7 +121,7 @@
     UIImageView * imageView = [self currentPlayerImageView];
     [self addSSVideoPlayerView:imageView];
     
-   
+ 
     
     self.videoDisplay = ScreenCellDisplay;
 }
@@ -160,11 +159,16 @@
     self.playerLayer.frame = self.frame;
     
 }
+//重置播放器
 -(void)resetVideoPlayer
 {
     [super resetVideoPlayer];
     [self.videoControlView removeFromSuperview];
     self.videoControlView = nil;
+}
+-(void)cacheProgress:(CGFloat)progress
+{
+    [self.videoControlView.cacheProgressView setProgress:progress animated:NO];
 }
 
 -(SSVideoControlView*)videoControlView

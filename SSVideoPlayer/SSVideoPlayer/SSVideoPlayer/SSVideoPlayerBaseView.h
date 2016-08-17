@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+
+
+
 #define SSVideoScreenBoundWidth [UIScreen mainScreen].bounds.size.width
 #define SSVideoScreenBoundHeight [UIScreen mainScreen].bounds.size.height
 #define SSVideoImageName(name) [NSString stringWithFormat:@"SSVideoBundle.bundle/%@",name]
@@ -35,6 +38,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 @property(nonatomic,strong)AVPlayerLayer    * playerLayer;
 @property(nonatomic,strong)AVPlayer         * player;
 
+
 @property(nonatomic,strong)NSString               * videoUrl;
 
 @property(nonatomic,assign)CGFloat                  MP2;
@@ -49,5 +53,6 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 -(void)setBaseOrientationLandscape;
 -(void)minVideoPlayer;
 -(void)resetVideoPlayer;
+-(void)cacheProgress:(CGFloat) progress;
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
 @end

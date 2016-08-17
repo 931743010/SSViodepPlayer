@@ -25,7 +25,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="face" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LyW-lC-FF0">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LyW-lC-FF0">
                         <rect key="frame" x="8" y="48" width="672" height="285.5"/>
                     </imageView>
                 </subviews>
@@ -46,7 +46,4 @@
             <point key="canvasLocation" x="362" y="374"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="face" width="720" height="498"/>
-    </resources>
 </document>

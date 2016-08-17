@@ -91,7 +91,7 @@
     if (!_cacheProgressView) {
         _cacheProgressView                   = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
         
-        _cacheProgressView.progressTintColor = [UIColor redColor];
+        _cacheProgressView.progressTintColor = [UIColor colorWithRed:117/255.0f green:117/255.0f blue:117/255.0f alpha:1];
      
         _cacheProgressView.trackTintColor    = [UIColor clearColor];
         
