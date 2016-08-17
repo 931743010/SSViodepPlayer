@@ -64,7 +64,7 @@
         if ([playerItem status]==AVPlayerStatusReadyToPlay) {
             
             NSLog(@"播放成功");
-            [self creatPlayerTimer];
+            [self playerInterval];
             
         }else if ([playerItem status]==AVPlayerItemStatusFailed){
             
@@ -140,16 +140,15 @@
     
     [self addNotification];
 
-    
     [self play];
     [self setAutoresizesSubviews:NO];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
+    
     
     
 }
 
 //创建计时器
--(void)creatPlayerTimer
+-(void)playerInterval
 {
     __weak typeof(self) weakSelf = self;
     [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1, 1) queue:NULL usingBlock:^(CMTime time){
@@ -177,6 +176,8 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil
      ];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
     
     // 监听 status 属性变化
     [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];

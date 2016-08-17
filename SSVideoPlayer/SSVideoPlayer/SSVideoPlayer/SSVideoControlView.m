@@ -110,7 +110,7 @@
         [_slider addTarget:self action:@selector(beginSliderAction:) forControlEvents:UIControlEventTouchDown];
         [_slider addTarget:self action:@selector(endSliderAction:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchCancel | UIControlEventTouchUpOutside];*/
         
-        _slider.minimumTrackTintColor = [UIColor whiteColor];
+        _slider.minimumTrackTintColor = [UIColor redColor];
         _slider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
     }
     
