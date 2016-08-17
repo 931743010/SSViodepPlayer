@@ -306,6 +306,21 @@
     
     return currentPlayTime;
 }
+//设置视频 跳转的 秒数
+- (void)seekTimeWithSecton:(CGFloat)precent completionHandler:(void (^)(BOOL finished))complate
+{
+    CGFloat seekTime =   [self totalPlayerTimer]*precent;
+    
+   [self.player seekToTime:CMTimeMakeWithSeconds(seekTime,NSEC_PER_SEC) completionHandler:^(BOOL finished) {
+      
+       
+       if (complate) {
+           complate(finished);
+       }
+   }];
+    
+    
+}
 -(void)moviePlayDidEnd:(NSNotification*) notification
 {
     

@@ -240,7 +240,11 @@
 #pragma mark slider结束滑动
 -(void)sliderEndAction:(UISlider *)slider
 {
-    
+
+    [super seekTimeWithSecton:slider.value completionHandler:^(BOOL finished) {
+       
+        
+    }];
 }
 
 -(SSVideoControlView*)videoControlView

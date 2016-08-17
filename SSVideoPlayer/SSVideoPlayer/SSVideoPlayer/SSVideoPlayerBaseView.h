@@ -58,6 +58,8 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 -(void)cacheProgress:(CGFloat) progress;
 -(void)moviePlayDidEnd:(NSNotification*) notification;
 
+- (void)seekTimeWithSecton:(CGFloat)precent completionHandler:(void (^)(BOOL finished))complate;
+
 -(void)setInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 -(void)sliderProgressWithCurrentTime:(CGFloat) currentTime totalTime:(CGFloat)totalTime;
