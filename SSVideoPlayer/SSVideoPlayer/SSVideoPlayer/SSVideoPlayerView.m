@@ -12,9 +12,11 @@
 
 #define animationTime 0.4
 
+
 @interface SSVideoPlayerView ()<SSVideoControlViewDelegate>
-@property(nonatomic,strong) SSVideoControlView * videoControlView;
-@property(nonatomic,assign)BOOL               sliderUpdate;//为了解决滑动中slider跳动的问题
+@property(nonatomic,strong)NSTimer              *timer;
+@property(nonatomic,strong) SSVideoControlView  * videoControlView;
+@property(nonatomic,assign)BOOL                sliderUpdate;//为了解决滑动中slider跳动的问题
 @end
 @implementation SSVideoPlayerView
 
@@ -105,12 +107,12 @@
     
     self.playerLayer.frame = self.bounds;
     
-    self.videoDisplay = ScreenMinDisplay;
+
     
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
    
-    
+    self.videoDisplay = ScreenMinDisplay;
     self.isScreenBottom = YES;
 }
 
@@ -167,8 +169,37 @@
     
     self.videoUrl = videoUrl;
     
-    self.videoControlView.hidden = NO;
+    [self videoControlView];
+    
+    [self createAutoHideTimer];
 }
+
+//创建计时器
+-(void)createAutoHideTimer
+{
+    if (self.timer) {
+        return;
+    }
+    self.timer  = [NSTimer scheduledTimerWithTimeInterval:6.0f target:self selector:@selector(autoHideTimerAction:) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    
+
+}
+//取消延迟隐藏
+-(void)cancleAutoTimer
+{
+    [self.timer invalidate];
+     self.timer = nil;
+}
+//每6秒执行一次
+-(void)autoHideTimerAction:(NSTimer*) timer
+{
+    self.videoControlView.bottomViewShow = NO;
+    self.videoControlView.toNavigationShow = NO;
+    
+    [self cancleAutoTimer];
+}
+
 //获取当前的播放器的subView
 -(UIImageView*)currentPlayerImageView
 {
@@ -193,7 +224,7 @@
     [super resetVideoPlayer];
     [self.videoControlView removeFromSuperview];
     self.videoControlView = nil;
-    
+    [self cancleAutoTimer];
     [self removeFromSuperview];
 }
 
@@ -281,7 +312,12 @@
     }else if(self.videoDisplay==ScreenFullDisplay){
         
         self.videoControlView.toNavigationShow = !flag;
-        
+    }
+    
+    if (self.videoControlView.bottomViewShow) {
+        [self createAutoHideTimer];
+    }else{
+        [self cancleAutoTimer];
     }
 }
 #pragma mark close事件
