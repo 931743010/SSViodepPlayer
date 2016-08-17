@@ -10,4 +10,10 @@
 #import "SSVideoPlayerBaseView.h"
 
 @interface SSVideoControlView : UIView
+@property(nonatomic,strong)UILabel * currentTimeLabel;
+@property(nonatomic,strong)UILabel * totalTimeLable;
+//缓存进度条
+@property(nonatomic,strong)UIProgressView * cacheProgressView;
+//slider
+@property(nonatomic,strong)UISlider   * slider;
 @end
