@@ -14,6 +14,7 @@
 -(void)zoomAction:(UIButton*) button;
 -(void)goBackAction;
 -(void)pauseAction:(UIButton*) button;
+-(void)closeAction;
 
 -(void)tapVideoControlViewAction;
 
@@ -44,6 +45,8 @@
 @property(nonatomic,strong)UIView * bottomView;
 
 @property(nonatomic,strong)UIButton * playerStatusButton;
+
+@property(nonatomic,strong)UIButton * closeButton;
 
 @property(nonatomic,assign) id<SSVideoControlViewDelegate> delegate;
 

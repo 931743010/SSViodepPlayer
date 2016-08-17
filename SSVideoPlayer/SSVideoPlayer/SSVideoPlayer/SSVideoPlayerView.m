@@ -56,23 +56,28 @@
 -(void)setVideoDisplay:(VideoPlayerDisplay)videoDisplay
 {
     [super setVideoDisplay:videoDisplay];
+    BOOL flag = self.videoControlView.bottomViewShow;
     if (videoDisplay==ScreenFullDisplay) {
         self.videoControlView.bottomView.hidden = NO;
         self.videoControlView.playerStatusButton.hidden = NO;
         self.videoControlView.toNavigationView.hidden = NO;
-        
+        self.videoControlView.toNavigationShow = flag;
+        self.videoControlView.closeButton.hidden = YES;
        [UIApplication  sharedApplication].statusBarHidden = YES;
         
     }else if(videoDisplay==ScreenMinDisplay) {
         self.videoControlView.bottomView.hidden = YES;
          self.videoControlView.playerStatusButton.hidden = YES;
         self.videoControlView.toNavigationView.hidden = YES;
+        self.videoControlView.closeButton.hidden = NO;
         
         [UIApplication sharedApplication].statusBarHidden = NO;
     }else{
         self.videoControlView.bottomView.hidden = NO;
          self.videoControlView.playerStatusButton.hidden = NO;
         self.videoControlView.toNavigationView.hidden = YES;
+        self.videoControlView.toNavigationShow = NO;
+        self.videoControlView.closeButton.hidden = YES;
         [UIApplication sharedApplication].statusBarHidden = NO;
         
     }
@@ -112,8 +117,6 @@
 //cell屏幕 -> 全屏
 -(void)fullScreenZoomFromSmall
 {
-    
-   
      [UIView animateWithDuration:animationTime animations:^{
             [self removeFromSuperview];
          
@@ -280,6 +283,13 @@
         
     }
 }
+#pragma mark close事件
+-(void)closeAction
+{
+    
+    [self resetVideoPlayer];
+}
+#pragma mark 暂停播放
 -(void)pauseAction:(UIButton *)button
 {
     if (!button.selected) {

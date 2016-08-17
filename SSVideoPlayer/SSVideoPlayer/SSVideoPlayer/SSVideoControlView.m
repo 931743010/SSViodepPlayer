@@ -19,6 +19,7 @@
 @property(nonatomic,strong)UIView * ssvideoBackView;
 
 
+
 @end
 @implementation SSVideoControlView
 
@@ -49,6 +50,7 @@
 }
 -(void)initSubView
 {
+    [self addSubview:self.closeButton];
     [self addSubview:self.bottomView];
     [self addSubview:self.toNavigationView];
     [self addSubview:self.playerStatusButton];
@@ -66,6 +68,12 @@
 }
 -(void)makeConstraints
 {
+    [self.closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+        make.width.height.mas_offset(30);
+        make.left.top.mas_offset(3);
+    }];
+    
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.bottom.left.right.mas_offset(0);
@@ -288,6 +296,20 @@
     return _playerStatusButton;
 }
 
+-(UIButton*) closeButton
+{
+    if (!_closeButton) {
+        
+        _closeButton = [UIButton new];
+        _closeButton.hidden = YES;
+        [_closeButton setBackgroundImage:[UIImage imageNamed:SSVideoImageName(@"SSVideo_close")] forState:UIControlStateNormal];
+        [_closeButton addTarget:self action:@selector(closeButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _closeButton;
+}
+
+
 #pragma mark 进度条开始滑动
 -(void)beginSliderAction:(UISlider*) slider
 {
@@ -350,6 +372,14 @@
         [self.delegate performSelector:@selector(pauseAction:) withObject:button];
     }
      button.selected = !button.selected;
+}
+#pragma mark 小屏幕下 close事件
+-(void)closeButtonAction
+{
+    if ([self.delegate respondsToSelector:@selector(closeAction)]) {
+        
+        [self.delegate performSelector:@selector(closeAction)];
+    }
 }
 
 -(void)setBottomViewShow:(BOOL)bottomViewShow
