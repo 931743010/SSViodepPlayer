@@ -103,6 +103,7 @@
     
     self.videoControlView.playerStatusButton.selected = YES;
     [self pause];
+    
     if (self.palyerState == SSVideo_Playing) {
         self.isUserPauseAction = NO;
     }
