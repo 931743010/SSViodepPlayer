@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SSVideoPlayerBaseView.h"
 
+@protocol SSVideoControlViewDelegate <NSObject>
+
+-(void)zoomAction:(UIButton*) button;
+
+@end
+
 @interface SSVideoControlView : UIView
 @property(nonatomic,strong)UILabel * currentTimeLabel;
 @property(nonatomic,strong)UILabel * totalTimeLable;
@@ -16,4 +22,14 @@
 @property(nonatomic,strong)UIProgressView * cacheProgressView;
 //slider
 @property(nonatomic,strong)UISlider   * slider;
+
+@property(nonatomic,strong)UIButton   * zoomButton;
+
+@property(nonatomic,assign) id<SSVideoControlViewDelegate> delegate;
+
+
+
+
+
+
 @end

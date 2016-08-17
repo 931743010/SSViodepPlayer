@@ -56,6 +56,9 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 -(void)resetVideoPlayer;
 -(void)cacheProgress:(CGFloat) progress;
 -(void)moviePlayDidEnd:(NSNotification*) notification;
+
+-(void)setInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
+
 -(void)sliderProgressWithCurrentTime:(CGFloat) currentTime totalTime:(CGFloat)totalTime;
 
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;

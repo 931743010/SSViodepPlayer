@@ -12,6 +12,7 @@
 
 @property(nonatomic,strong)UIView * bottomView;
 @property(nonatomic,strong)UIView * backgroundBottomView;
+@property(nonatomic,strong)UIView * zoomView;
 
 
 @end
@@ -45,6 +46,9 @@
     [self.bottomView addSubview:self.totalTimeLable];
     [self.bottomView addSubview:self.cacheProgressView];
     [self.bottomView addSubview:self.slider];
+   
+    [self.bottomView addSubview:self.zoomView];
+    [self.zoomView addSubview:self.zoomButton];
 }
 -(void)makeConstraints
 {
@@ -61,11 +65,22 @@
         make.width.mas_offset(60);
         
     }];
+    [self.zoomView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.top.right.bottom.mas_offset(0);
+        make.width.mas_offset(40);
+    }];
+    [self.zoomButton mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.width.height.mas_offset(20);
+        make.center.mas_equalTo(self.zoomView);
+        
+    }];
     
     [self.totalTimeLable mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.bottom.mas_offset(0);
-        make.right.mas_offset(-5);
+        make.right.mas_equalTo(self.zoomButton.mas_left).mas_offset(0);
         make.width.mas_offset(60);
         
     }];
@@ -145,6 +160,30 @@
     return _currentTimeLabel;
 }
 
+-(UIView*)zoomView
+{
+    if (!_zoomView) {
+        _zoomView = [UIView new];
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapZoomViewAction)];
+        [_zoomView addGestureRecognizer:tap];
+    }
+    
+    return _zoomView;
+}
+-(UIButton*)zoomButton
+{
+    if (!_zoomButton) {
+    
+        _zoomButton = [UIButton new];
+        _zoomButton.selected = NO;
+        [_zoomButton setBackgroundImage:[UIImage imageNamed:SSVideoImageName(@"SSVideo_zoom_full")] forState:UIControlStateNormal];
+        [_zoomButton setBackgroundImage:[UIImage imageNamed:SSVideoImageName(@"SSVideo_zoom_smal")] forState:UIControlStateSelected];
+        [_zoomButton addTarget:self action:@selector(zoonButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _zoomButton;
+}
+
 -(UIView*)bottomView
 {
     if (!_bottomView) {
@@ -162,7 +201,20 @@
     return _bottomView;
 }
 
-
+#pragma mark 缩放按钮
+-(void)tapZoomViewAction
+{
+    
+    self.zoomButton.selected = !self.zoomButton.selected ;
+    if ([self.delegate respondsToSelector:@selector(zoomAction:)]) {
+        [self.delegate performSelector:@selector(zoomAction:) withObject:self.zoomButton];
+    }
+    
+}
+-(void)zoonButtonAction:(UIButton*) button
+{
+    [self tapZoomViewAction];
+}
 
 
 

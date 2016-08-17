@@ -12,7 +12,7 @@
 
 #define animationTime 0.4
 
-@interface SSVideoPlayerView ()
+@interface SSVideoPlayerView ()<SSVideoControlViewDelegate>
 @property(nonatomic,strong) SSVideoControlView * videoControlView;
 @end
 @implementation SSVideoPlayerView
@@ -42,13 +42,14 @@
 }
 -(void)setBaseOrientationPortrait
 {
-    
+    self.videoControlView.zoomButton.selected = NO;
     [self smallScreenZoomFromFull];
     
 }
 
 -(void)setBaseOrientationLandscape
 {
+     self.videoControlView.zoomButton.selected = YES;
     [self fullScreenZoomFromSmall];
 }
 -(void)setVideoDisplay:(VideoPlayerDisplay)videoDisplay
@@ -95,6 +96,7 @@
 -(void)fullScreenZoomFromSmall
 {
     
+   
      [UIView animateWithDuration:animationTime animations:^{
             [self removeFromSuperview];
          
@@ -202,11 +204,24 @@
     return [NSString stringWithFormat:@"%02zd:%02zd", minute, second];
 }
 
+-(void)zoomAction:(UIButton *)button
+{
+    
+    if (button.selected) {
+        [super setInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+        
+    }else{
+        
+        [super setInterfaceOrientation:UIInterfaceOrientationPortrait];
+    }
+}
+
 -(SSVideoControlView*)videoControlView
 {
     if (!_videoControlView) {
         
         _videoControlView = [[SSVideoControlView alloc] initWithFrame:self.playerLayer.frame];
+        _videoControlView.delegate = self;
         [self addSubview:_videoControlView];
       
     }
