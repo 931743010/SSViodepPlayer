@@ -57,11 +57,21 @@
 {
     [super setVideoDisplay:videoDisplay];
     if (videoDisplay==ScreenFullDisplay) {
+        self.videoControlView.bottomViewShow = YES;
+        self.videoControlView.toNavigationShow = YES;
         
        [UIApplication  sharedApplication].statusBarHidden = YES;
         
-    }else{
+    }else if(videoDisplay==ScreenMinDisplay) {
+        self.videoControlView.bottomViewShow = NO;
+        self.videoControlView.toNavigationShow = NO;
+        
         [UIApplication sharedApplication].statusBarHidden = NO;
+    }else{
+        self.videoControlView.bottomViewShow = YES;
+        self.videoControlView.toNavigationShow = NO;
+        [UIApplication sharedApplication].statusBarHidden = NO;
+        
     }
     self.videoControlView.frame = self.bounds;
 
@@ -235,12 +245,6 @@
 {
     self.sliderUpdate = YES;
 }
-
-#pragma mark slider滑动中
--(void)sliderUpdateAction:(UISlider *)slider
-{
-    
-}
 #pragma mark slider结束滑动
 -(void)sliderEndAction:(UISlider *)slider
 {
@@ -249,6 +253,42 @@
         self.sliderUpdate = NO;
         
     }];
+}
+#pragma mark 点击屏幕事件
+-(void)tapVideoControlViewAction
+{
+    
+    if (self.videoDisplay==ScreenMinDisplay) {
+        return;
+    }
+    BOOL flag = self.videoControlView.bottomViewShow;
+    
+    self.videoControlView.bottomViewShow = !flag;
+    
+    if (self.videoDisplay==ScreenCellDisplay) {
+        
+        self.videoControlView.toNavigationShow = NO;
+    }else if(self.videoDisplay==ScreenFullDisplay){
+        
+        self.videoControlView.toNavigationShow = !flag;
+        
+    }
+}
+-(void)pauseAction:(UIButton *)button
+{
+    if (!button.selected) {
+        [self pause];
+    }else{
+        [self play];
+    }
+}
+
+-(void)play{
+    [super play];
+}
+
+-(void)pause{
+    [super pause];
 }
 
 -(SSVideoControlView*)videoControlView

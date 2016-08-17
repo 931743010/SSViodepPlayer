@@ -8,12 +8,13 @@
 
 #import "SSVideoControlView.h"
 #import "Masonry.h"
+#define animtionTime 0.3
 @interface SSVideoControlView()
 
-@property(nonatomic,strong)UIView * bottomView;
+
 @property(nonatomic,strong)UIView * backgroundBottomView;
 @property(nonatomic,strong)UIView * zoomView;
-@property(nonatomic,strong)UIView * toNavigationView;
+
 @property(nonatomic,strong)UIButton * ssvideoBackButton;
 @property(nonatomic,strong)UIView * ssvideoBackView;
 
@@ -31,6 +32,8 @@
         [self addGestureRecognizer:tapGesture];
         [self initSubView];
         [self makeConstraints];
+        self.bottomViewShow = YES;
+        self.toNavigationShow = NO;
         
     }
     
@@ -39,13 +42,16 @@
 -(void)tapControlView
 {
     
-    
+    if ([self.delegate respondsToSelector:@selector(tapVideoControlViewAction)]) {
+        [self.delegate performSelector:@selector(tapVideoControlViewAction)];
+    }
     
 }
 -(void)initSubView
 {
     [self addSubview:self.bottomView];
     [self addSubview:self.toNavigationView];
+    [self addSubview:self.playerStatusButton];
     [self.bottomView addSubview:self.currentTimeLabel];
     [self.bottomView addSubview:self.totalTimeLable];
     [self.bottomView addSubview:self.cacheProgressView];
@@ -56,6 +62,7 @@
     
     [self.toNavigationView addSubview:self.ssvideoBackView];
     [self.ssvideoBackView addSubview:self.ssvideoBackButton];
+    
 }
 -(void)makeConstraints
 {
@@ -71,6 +78,13 @@
         make.height.mas_offset(40);
         
     }];
+    
+    [self.playerStatusButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.width.height.mas_offset(59);
+        make.center.mas_equalTo(self);
+    }];
+    
     [self.ssvideoBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(0);
         make.top.mas_offset(5);
@@ -259,6 +273,20 @@
     return _ssvideoBackView;
 }
 
+-(UIButton*)playerStatusButton
+{
+    if (!_playerStatusButton) {
+        
+        _playerStatusButton = [UIButton new];
+        _playerStatusButton.selected = NO;
+        [_playerStatusButton setBackgroundImage:[UIImage imageNamed:SSVideoImageName(@"SSVideo_pause")] forState:UIControlStateNormal];
+        [_playerStatusButton setBackgroundImage:[UIImage imageNamed:SSVideoImageName(@"SSVideo_player")] forState:UIControlStateSelected];
+        [_playerStatusButton addTarget:self action:@selector(pauseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _playerStatusButton;
+}
+
 #pragma mark 进度条开始滑动
 -(void)beginSliderAction:(UISlider*) slider
 {
@@ -270,10 +298,10 @@
 }
 #pragma mark 进度条滑动中
 -(void)updateSliderAction:(UISlider*) slider
-{
+{   /*
     if ([self.delegate respondsToSelector:@selector(sliderUpdateAction:)]) {
         [self.delegate performSelector:@selector(sliderUpdateAction:) withObject:slider];
-    }
+    }*/
 }
 
 #pragma mark 结束滑动
@@ -312,6 +340,44 @@
 {
     [self tapZoomViewAction];
 }
+
+#pragma mark 开始、暂停
+-(void)pauseButtonAction:(UIButton*) button
+{
+   
+    if ([self.delegate respondsToSelector:@selector(pauseAction:)]) {
+        [self.delegate performSelector:@selector(pauseAction:) withObject:button];
+    }
+     button.selected = !button.selected;
+}
+
+-(void)setBottomViewShow:(BOOL)bottomViewShow
+{
+    _bottomViewShow = bottomViewShow;
+    
+    [UIView animateWithDuration:animtionTime animations:^{
+        self.bottomView.alpha = bottomViewShow ? 1 : 0;
+        self.playerStatusButton.alpha = bottomViewShow ? 1 : 0;
+        
+    } completion:^(BOOL finished) {
+        
+       
+    }];
+    
+}
+-(void)setToNavigationShow:(BOOL)toNavigationShow
+{
+    _toNavigationShow = toNavigationShow;
+    
+    [UIView animateWithDuration:animtionTime animations:^{
+        self.toNavigationView.alpha = toNavigationShow ? 1 : 0;
+        
+    } completion:^(BOOL finished) {
+       
+    }];
+    
+}
+
 
 
 

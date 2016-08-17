@@ -13,11 +13,13 @@
 
 -(void)zoomAction:(UIButton*) button;
 -(void)goBackAction;
+-(void)pauseAction:(UIButton*) button;
 
+-(void)tapVideoControlViewAction;
 
 -(void)sliderBeginAction:(UISlider*) slider;
 
--(void)sliderUpdateAction:(UISlider*) slider;
+//-(void)sliderUpdateAction:(UISlider*) slider;
 
 -(void)sliderEndAction:(UISlider*) slider;
 
@@ -32,6 +34,16 @@
 @property(nonatomic,strong)UISlider   * slider;
 
 @property(nonatomic,strong)UIButton   * zoomButton;
+//控制 底部操作栏 是否显示
+@property(nonatomic,assign)BOOL         bottomViewShow;
+//控制顶部 导航栏是否显示
+@property(nonatomic,assign)BOOL         toNavigationShow;
+
+@property(nonatomic,strong)UIView * toNavigationView;
+
+@property(nonatomic,strong)UIView * bottomView;
+
+@property(nonatomic,strong)UIButton * playerStatusButton;
 
 @property(nonatomic,assign) id<SSVideoControlViewDelegate> delegate;
 
