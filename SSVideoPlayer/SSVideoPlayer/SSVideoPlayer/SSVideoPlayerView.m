@@ -72,14 +72,22 @@
         return;
     }
 
-     [self removeFromSuperview];
-     self.transform = CGAffineTransformIdentity;
+    [self removeFromSuperview];
+    
+    self.transform = CGAffineTransformIdentity;
+    
     CGFloat width = SSVideoScreenBoundWidth/2;
+    
     CGFloat height = width*(9.0/16.0);
+    
     self.frame = CGRectMake(width, SSVideoScreenBoundHeight-height, width, height);
+    
     self.playerLayer.frame = self.bounds;
+    
     [[UIApplication sharedApplication].keyWindow addSubview:self];
+    
     self.videoDisplay = ScreenMinDisplay;
+    
     self.isScreenBottom = YES;
 }
 
@@ -131,8 +139,6 @@
 {
     [super initViewWithTableView:tableView cell:cell indexPath:indexPath videoUrl:videoUrl];
     
-    //[self videoControlView];
-    
     UIImageView * imageView = [self currentPlayerImageView];
     
     [self addSSVideoPlayerView:imageView];
@@ -166,9 +172,34 @@
     [self.videoControlView removeFromSuperview];
     self.videoControlView = nil;
 }
+
+//设置缓存进度
 -(void)cacheProgress:(CGFloat)progress
 {
     [self.videoControlView.cacheProgressView setProgress:progress animated:NO];
+}
+//设置slider 的进度
+-(void)sliderProgressWithCurrentTime:(CGFloat)currentTime totalTime:(CGFloat)totalTime
+{
+    
+    self.videoControlView.slider.value = currentTime/totalTime;
+    
+    self.videoControlView.currentTimeLabel.text = [self timePlayerString:currentTime];
+    self.videoControlView.totalTimeLable.text  = [self timePlayerString:totalTime];
+}
+-(void)moviePlayDidEnd:(NSNotification *)notification
+{
+    NSLog(@"播放完成");
+}
+
+//当前时间
+-(NSString*) timePlayerString:(CGFloat) time
+{
+    
+    NSInteger minute  = (NSInteger)time/ 60;//当前秒
+    NSInteger second  = (NSInteger)time % 60;//当前分
+    
+    return [NSString stringWithFormat:@"%02zd:%02zd", minute, second];
 }
 
 -(SSVideoControlView*)videoControlView

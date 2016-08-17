@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 @property(nonatomic,strong)AVPlayerLayer    * playerLayer;
 @property(nonatomic,strong)AVPlayer         * player;
 
+@property(nonatomic,assign)NSInteger        ctmNumber;//从第多少秒开始播放
 
 @property(nonatomic,strong)NSString               * videoUrl;
 
@@ -54,5 +55,8 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 -(void)minVideoPlayer;
 -(void)resetVideoPlayer;
 -(void)cacheProgress:(CGFloat) progress;
+-(void)moviePlayDidEnd:(NSNotification*) notification;
+-(void)sliderProgressWithCurrentTime:(CGFloat) currentTime totalTime:(CGFloat)totalTime;
+
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
 @end

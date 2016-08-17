@@ -11,6 +11,7 @@
 @interface SSVideoPlayerBaseView ()
 
 @property(nonatomic,assign)CGFloat tableCellHeight;
+@property(nonatomic,strong)NSTimer * timer;
 
 @end
 
@@ -63,6 +64,7 @@
         if ([playerItem status]==AVPlayerStatusReadyToPlay) {
             
             NSLog(@"播放成功");
+            [self creatPlayerTimer];
             
         }else if ([playerItem status]==AVPlayerItemStatusFailed){
             
@@ -91,10 +93,7 @@
 
     }
 }
--(void)cacheProgress:(CGFloat) progress
-{
-    
-}
+
 -(void)monitorTableViewContenOffset
 {
     
@@ -139,14 +138,34 @@
     self.playerLayer.frame = self.layer.bounds;
     [self.layer addSublayer:_playerLayer];
     
-    self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    
     [self addNotification];
+
     
     [self play];
     [self setAutoresizesSubviews:NO];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
     
     
+}
+
+//创建计时器
+-(void)creatPlayerTimer
+{
+    __weak typeof(self) weakSelf = self;
+    [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1, 1) queue:NULL usingBlock:^(CMTime time){
+        NSArray *loadedRanges = weakSelf.playerItem.seekableTimeRanges;
+        if (loadedRanges.count > 0 && weakSelf.playerItem.duration.timescale != 0)
+        {
+
+            //更新 播放时间
+            CGFloat currentPlayerTime = [weakSelf currentPlayerTimer];
+            CGFloat totalPlayerTime   = [weakSelf totalPlayerTimer];
+            
+            [weakSelf sliderProgressWithCurrentTime:currentPlayerTime totalTime:totalPlayerTime];
+            
+        }
+        
+    }];
 }
 
 -(void)addNotification
@@ -272,6 +291,25 @@
     
 }
 
+//视频播放总时长
+-(CGFloat)totalPlayerTimer
+{
+    CGFloat totalPalyerTime = (self.playerItem.duration.value / self.playerItem.duration.timescale)-self.ctmNumber;
+    
+    return totalPalyerTime;
+}
+//视频播放当前时长
+-(CGFloat)currentPlayerTimer
+{
+    CGFloat currentPlayTime = CMTimeGetSeconds([self.playerItem currentTime])-self.ctmNumber;
+    
+    return currentPlayTime;
+}
+-(void)moviePlayDidEnd:(NSNotification*) notification
+{
+    
+}
+
 -(void)minVideoPlayer
 {
     
@@ -285,5 +323,20 @@
 {
     
 }
+-(void)cacheProgress:(CGFloat) progress
+{
+    
+}
+
+-(void)sliderProgressWithCurrentTime:(CGFloat) currentTime totalTime:(CGFloat)totalTime
+{
+    
+}
+
+
+
+
+
+
 
 @end
