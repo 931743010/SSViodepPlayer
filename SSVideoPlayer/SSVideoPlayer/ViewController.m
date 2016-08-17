@@ -113,6 +113,7 @@
     
     NSString * url = [dic valueForKey:@"mp4_url"];
      [videoPlayer initViewWithTableView:self.tableView cell:cell indexPath:indexPath videoUrl:url];
+
     
     
 }

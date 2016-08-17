@@ -54,6 +54,10 @@
     _videoDisplay = videoDisplay;
     
 }
+-(void)setPalyerState:(VideoPlayerState)palyerState
+{
+    _palyerState = palyerState;
+}
 //********* set 方法 *******************
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -63,12 +67,12 @@
     {
         if ([playerItem status]==AVPlayerStatusReadyToPlay) {
             
-            NSLog(@"播放成功");
+            self.palyerState = SSVideo_Playing;
             [self playerInterval];
             
         }else if ([playerItem status]==AVPlayerItemStatusFailed){
             
-            NSLog(@"播放失败 = %@",playerItem.error);
+            self.palyerState = SSVideo_Faild;
         }
     }else if ([keyPath isEqualToString:@"contentOffset"]){
         
@@ -79,7 +83,10 @@
         
     }else if ([keyPath isEqualToString:@"playbackBufferEmpty"])
     {
-        
+        //如果缓存为空 设置为缓冲状态
+        if (self.playerItem.playbackBufferEmpty) {
+            self.palyerState = SSVideo_Bufferinng;
+        }
         
     }else if ([keyPath isEqualToString:@"loadedTimeRanges"])
     {
@@ -91,6 +98,11 @@
         
         [self cacheProgress:progress];
 
+    }else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"])
+    {
+        if (self.playerItem.playbackLikelyToKeepUp && self.palyerState == SSVideo_Bufferinng){
+             self.palyerState = SSVideo_Playing;
+        }
     }
 }
 
@@ -160,6 +172,8 @@
         if (loadedRanges.count > 0 && weakSelf.playerItem.duration.timescale != 0)
         {
 
+            weakSelf.palyerState = SSVideo_Playing;
+            
             //更新 播放时间
             CGFloat currentPlayerTime = [weakSelf currentPlayerTimer];
             CGFloat totalPlayerTime   = [weakSelf totalPlayerTimer];
@@ -183,12 +197,21 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
     
+
+    
+    // app退到后台
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundNotification) name:UIApplicationWillResignActiveNotification object:nil];
+    // app进入前台
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayGroundNotification) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
     // 监听 status 属性变化
     [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
     // 监听缓存
     [self.playerItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
     
      [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
+    
+     [self.playerItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
     
 }
 -(void)onDeviceOrientationNotification
@@ -248,6 +271,8 @@
     self.tableViewCell  =  cell;
     self.indexPath      =  indexPath;
     self.tableCellHeight = cell.frame.size.height;
+    
+    self.palyerState = SSVideo_Bufferinng;
 }
 
 -(void)resetVideoPlayer
@@ -260,7 +285,9 @@
     [self.playerItem removeObserver:self forKeyPath:@"status"];
     [self.playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
     [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
+    [self.playerItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
     [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
+    
  
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -276,6 +303,7 @@
 
 -(void)pause{
     [self.player pause];
+    self.palyerState = SSVideo_Pause;
 }
 
 #pragma mark 计算视频缓冲进度
@@ -340,6 +368,16 @@
     
     return image;
 }
+-(void)appDidEnterBackgroundNotification
+{
+    
+}
+
+-(void)appDidEnterPlayGroundNotification
+{
+    
+}
+
 -(void)moviePlayDidEnd:(NSNotification*) notification
 {
     

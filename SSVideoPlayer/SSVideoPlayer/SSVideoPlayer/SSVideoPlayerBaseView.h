@@ -30,6 +30,14 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
     
 };
 
+//视频播放状态
+typedef NS_ENUM(NSInteger,VideoPlayerState) {
+    SSVideo_Playing,
+    SSVideo_Pause,
+    SSVideo_Bufferinng,
+    SSVideo_Faild
+};
+
 @interface SSVideoPlayerBaseView : UIView
 
 @property(nonatomic,assign)BOOL isScreenBottom;//是否在底部显示
@@ -50,6 +58,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 
 @property(nonatomic,assign)DeviceOrientation  deviceOrientation;
 @property(nonatomic,assign)VideoPlayerDisplay videoDisplay;
+@property(nonatomic,assign)VideoPlayerState   palyerState;
 
 
 -(void)setBaseOrientationPortrait;
@@ -58,6 +67,9 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 -(void)resetVideoPlayer;
 -(void)cacheProgress:(CGFloat) progress;
 -(void)moviePlayDidEnd:(NSNotification*) notification;
+-(void)appDidEnterBackgroundNotification;
+
+-(void)appDidEnterPlayGroundNotification;
 
 -(void)play;
 -(void)pause;

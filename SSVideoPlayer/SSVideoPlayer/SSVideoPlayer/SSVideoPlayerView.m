@@ -17,6 +17,7 @@
 @property(nonatomic,strong)NSTimer              *timer;
 @property(nonatomic,strong) SSVideoControlView  * videoControlView;
 @property(nonatomic,assign)BOOL                sliderUpdate;//为了解决滑动中slider跳动的问题
+@property(nonatomic,assign)BOOL                 isUserPauseAction;//是否为用户手动暂停
 @end
 @implementation SSVideoPlayerView
 
@@ -55,11 +56,19 @@
      self.videoControlView.zoomButton.selected = YES;
     [self fullScreenZoomFromSmall];
 }
+
+-(void)setPalyerState:(VideoPlayerState)palyerState
+{
+    [super setPalyerState:palyerState];
+    
+    
+}
 -(void)setVideoDisplay:(VideoPlayerDisplay)videoDisplay
 {
     [super setVideoDisplay:videoDisplay];
     BOOL flag = self.videoControlView.bottomViewShow;
     if (videoDisplay==ScreenFullDisplay) {
+
         self.videoControlView.bottomView.hidden = NO;
         self.videoControlView.playerStatusButton.hidden = NO;
         self.videoControlView.toNavigationView.hidden = NO;
@@ -68,6 +77,7 @@
        [UIApplication  sharedApplication].statusBarHidden = YES;
         
     }else if(videoDisplay==ScreenMinDisplay) {
+
         self.videoControlView.bottomView.hidden = YES;
          self.videoControlView.playerStatusButton.hidden = YES;
         self.videoControlView.toNavigationView.hidden = YES;
@@ -85,6 +95,25 @@
     }
     self.videoControlView.frame = self.bounds;
 
+}
+//程序进入后台
+-(void)appDidEnterBackgroundNotification
+{
+    
+    
+    self.videoControlView.playerStatusButton.selected = YES;
+    [self pause];
+    if (self.palyerState == SSVideo_Playing) {
+        self.isUserPauseAction = NO;
+    }
+}
+//程序回到前台
+-(void)appDidEnterPlayGroundNotification
+{
+    if (self.isUserPauseAction) return;
+    
+    self.videoControlView.playerStatusButton.selected = NO;
+    [self play];
 }
 
 //最小化 右下角
@@ -194,6 +223,7 @@
 //每6秒执行一次
 -(void)autoHideTimerAction:(NSTimer*) timer
 {
+    //如果是暂停状态 不会自动隐藏
     self.videoControlView.bottomViewShow = NO;
     self.videoControlView.toNavigationShow = NO;
     
@@ -330,6 +360,7 @@
 -(void)pauseAction:(UIButton *)button
 {
     if (!button.selected) {
+        self.isUserPauseAction = YES;
         [self pause];
     }else{
         [self play];
@@ -338,10 +369,15 @@
 
 -(void)play{
     [super play];
+    [self createAutoHideTimer];
+   
 }
 
 -(void)pause{
     [super pause];
+    //暂停的时候  不隐藏
+    [self cancleAutoTimer];
+   
 }
 
 -(SSVideoControlView*)videoControlView
