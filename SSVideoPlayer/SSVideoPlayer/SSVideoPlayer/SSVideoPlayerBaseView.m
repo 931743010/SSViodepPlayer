@@ -130,6 +130,10 @@
 //初始化播放器
 -(void)initPlayerLayer
 {
+    //站位图
+    UIImage *image = [self imageWithColor:[UIColor blackColor]];
+     self.layer.contents = (id) image.CGImage;
+    
     self.playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.videoUrl]];
     self.player = [AVPlayer playerWithPlayerItem:_playerItem];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
@@ -320,6 +324,21 @@
    }];
     
     
+}
+//颜色成成图片
+-(UIImage *)imageWithColor:(UIColor *)color
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 -(void)moviePlayDidEnd:(NSNotification*) notification
 {

@@ -193,6 +193,8 @@
     [super resetVideoPlayer];
     [self.videoControlView removeFromSuperview];
     self.videoControlView = nil;
+    
+    [self removeFromSuperview];
 }
 
 //设置缓存进度
@@ -208,7 +210,6 @@
          self.videoControlView.slider.value = currentTime/totalTime;
     }
    
-    
     self.videoControlView.currentTimeLabel.text = [self timePlayerString:currentTime];
     self.videoControlView.totalTimeLable.text  = [self timePlayerString:totalTime];
 }
