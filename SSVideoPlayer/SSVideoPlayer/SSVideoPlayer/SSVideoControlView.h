@@ -12,6 +12,7 @@
 @protocol SSVideoControlViewDelegate <NSObject>
 
 -(void)zoomAction:(UIButton*) button;
+-(void)goBackAction;
 
 @end
 

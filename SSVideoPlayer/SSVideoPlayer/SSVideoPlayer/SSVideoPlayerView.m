@@ -204,6 +204,7 @@
     return [NSString stringWithFormat:@"%02zd:%02zd", minute, second];
 }
 
+#pragma mark 缩放按钮
 -(void)zoomAction:(UIButton *)button
 {
     
@@ -214,6 +215,14 @@
         
         [super setInterfaceOrientation:UIInterfaceOrientationPortrait];
     }
+}
+
+-(void)goBackAction
+{
+    if (self.videoDisplay) {
+        [super setInterfaceOrientation:UIInterfaceOrientationPortrait];
+    }
+    
 }
 
 -(SSVideoControlView*)videoControlView

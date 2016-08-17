@@ -13,6 +13,9 @@
 @property(nonatomic,strong)UIView * bottomView;
 @property(nonatomic,strong)UIView * backgroundBottomView;
 @property(nonatomic,strong)UIView * zoomView;
+@property(nonatomic,strong)UIView * toNavigationView;
+@property(nonatomic,strong)UIButton * ssvideoBackButton;
+@property(nonatomic,strong)UIView * ssvideoBackView;
 
 
 @end
@@ -42,6 +45,7 @@
 -(void)initSubView
 {
     [self addSubview:self.bottomView];
+    [self addSubview:self.toNavigationView];
     [self.bottomView addSubview:self.currentTimeLabel];
     [self.bottomView addSubview:self.totalTimeLable];
     [self.bottomView addSubview:self.cacheProgressView];
@@ -49,6 +53,9 @@
    
     [self.bottomView addSubview:self.zoomView];
     [self.zoomView addSubview:self.zoomButton];
+    
+    [self.toNavigationView addSubview:self.ssvideoBackView];
+    [self.ssvideoBackView addSubview:self.ssvideoBackButton];
 }
 -(void)makeConstraints
 {
@@ -56,6 +63,25 @@
        
         make.bottom.left.right.mas_offset(0);
         make.height.mas_offset(40);
+    }];
+    
+    [self.toNavigationView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.top.left.right.mas_offset(0);
+        make.height.mas_offset(40);
+        
+    }];
+    [self.ssvideoBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(0);
+        make.top.mas_offset(5);
+        make.bottom.mas_offset(-5);
+        make.width.mas_offset(50);
+        
+    }];
+    [self.ssvideoBackButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(self.ssvideoBackView);
+        make.width.height.mas_offset(20);
+        
     }];
     
     [self.currentTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -199,6 +225,50 @@
    
     }
     return _bottomView;
+}
+
+-(UIView*)toNavigationView
+{
+    if (!_toNavigationView) {
+        
+        _toNavigationView = [UIView new];
+    }
+    
+    return _toNavigationView;
+}
+
+-(UIButton*)ssvideoBackButton
+{
+    if (!_ssvideoBackButton) {
+        _ssvideoBackButton = [UIButton new];
+        [_ssvideoBackButton setBackgroundImage:[UIImage imageNamed:SSVideoImageName(@"SSVideoBack")] forState:UIControlStateNormal];
+        [_ssvideoBackButton addTarget:self action:@selector(goBackButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _ssvideoBackButton;
+}
+-(UIView*)ssvideoBackView
+{
+    if (!_ssvideoBackView) {
+        _ssvideoBackView = [UIView new];
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goBackViewAction)];
+        [_ssvideoBackView addGestureRecognizer:tap];
+        
+    }
+    
+    return _ssvideoBackView;
+}
+#pragma mark 返回按钮
+-(void)goBackViewAction
+{
+    if ([self.delegate respondsToSelector:@selector(goBackAction)]) {
+        [self.delegate performSelector:@selector(goBackAction)];
+    }
+    
+}
+-(void)goBackButtonAction
+{
+    [self goBackViewAction];
 }
 
 #pragma mark 缩放按钮
