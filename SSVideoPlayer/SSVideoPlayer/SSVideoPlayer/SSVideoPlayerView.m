@@ -47,7 +47,7 @@
 -(void)setBaseOrientationPortrait
 {
     self.videoControlView.zoomButton.selected = NO;
-    [self smallScreenZoomFromFull];
+    [self smallScreenZoomFromFull:nil];
     
 }
 
@@ -169,7 +169,7 @@
 
 
 //全屏->小屏 cell上播放
--(void)smallScreenZoomFromFull
+-(void)smallScreenZoomFromFull:(void(^)()) complate
 {
   
     [UIView animateWithDuration:animationTime animations:^{
@@ -178,13 +178,15 @@
         self.videoControlView.transform =CGAffineTransformIdentity;
    
     } completion:^(BOOL finished) {
-        
+       
+        if (complate) {
+            complate();
+        }
     }];
+    
     UIImageView * imageView = [self currentPlayerImageView];
     [self addSSVideoPlayerView:imageView];
-    
- 
-    
+   
     self.videoDisplay = ScreenCellDisplay;
 }
 
@@ -252,11 +254,27 @@
 //重置播放器
 -(void)resetVideoPlayer
 {
+    if (self.videoDisplay ==ScreenFullDisplay ) {
+        [self smallScreenZoomFromFull:^{
+            
+            [self resetAction];
+        }];
+        return;
+    }
+    
+    [self resetAction];
+    
+    
+   
+}
+-(void)resetAction
+{
     [super resetVideoPlayer];
     [self.videoControlView removeFromSuperview];
     self.videoControlView = nil;
     [self cancleAutoTimer];
     [self removeFromSuperview];
+    
 }
 
 //设置缓存进度
@@ -277,7 +295,8 @@
 }
 -(void)moviePlayDidEnd:(NSNotification *)notification
 {
-    NSLog(@"播放完成");
+    
+    [self resetVideoPlayer];
 }
 
 //当前时间

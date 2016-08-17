@@ -273,11 +273,15 @@
     self.tableCellHeight = cell.frame.size.height;
     
     self.palyerState = SSVideo_Bufferinng;
+    self.deviceOrientation = OrientationPortrait;
+ 
 }
 
 -(void)resetVideoPlayer
 {
     [self pause];
+    
+   
     [self.playerLayer removeFromSuperlayer];
     self.playerLayer = nil;
     self.player = nil;
@@ -295,6 +299,7 @@
     
     self.tableViewCell = nil;
     self.tableView = nil;
+    self.indexPath = nil;
     
 }
 -(void)play{
