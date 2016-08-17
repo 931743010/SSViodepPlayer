@@ -51,6 +51,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
 @property(nonatomic,assign)DeviceOrientation  deviceOrientation;
 @property(nonatomic,assign)VideoPlayerDisplay videoDisplay;
 
+
 -(void)setBaseOrientationPortrait;
 -(void)setBaseOrientationLandscape;
 -(void)minVideoPlayer;

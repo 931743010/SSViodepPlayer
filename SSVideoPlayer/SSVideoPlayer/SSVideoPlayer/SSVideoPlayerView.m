@@ -14,6 +14,7 @@
 
 @interface SSVideoPlayerView ()<SSVideoControlViewDelegate>
 @property(nonatomic,strong) SSVideoControlView * videoControlView;
+@property(nonatomic,assign)BOOL               sliderUpdate;//为了解决滑动中slider跳动的问题
 @end
 @implementation SSVideoPlayerView
 
@@ -184,7 +185,10 @@
 -(void)sliderProgressWithCurrentTime:(CGFloat)currentTime totalTime:(CGFloat)totalTime
 {
     
-    self.videoControlView.slider.value = currentTime/totalTime;
+    if (!self.sliderUpdate) {
+         self.videoControlView.slider.value = currentTime/totalTime;
+    }
+   
     
     self.videoControlView.currentTimeLabel.text = [self timePlayerString:currentTime];
     self.videoControlView.totalTimeLable.text  = [self timePlayerString:totalTime];
@@ -229,7 +233,7 @@
 #pragma mark slider开始滑动
 -(void)sliderBeginAction:(UISlider *)slider
 {
-    
+    self.sliderUpdate = YES;
 }
 
 #pragma mark slider滑动中
@@ -242,7 +246,7 @@
 {
 
     [super seekTimeWithSecton:slider.value completionHandler:^(BOOL finished) {
-       
+        self.sliderUpdate = NO;
         
     }];
 }

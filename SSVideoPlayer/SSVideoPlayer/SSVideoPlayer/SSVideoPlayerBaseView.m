@@ -147,7 +147,7 @@
     
 }
 
-//创建计时器
+//每秒执行一次
 -(void)playerInterval
 {
     __weak typeof(self) weakSelf = self;
