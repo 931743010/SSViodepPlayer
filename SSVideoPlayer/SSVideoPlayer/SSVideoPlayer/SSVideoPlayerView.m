@@ -57,19 +57,22 @@
 {
     [super setVideoDisplay:videoDisplay];
     if (videoDisplay==ScreenFullDisplay) {
-        self.videoControlView.bottomViewShow = YES;
-        self.videoControlView.toNavigationShow = YES;
+        self.videoControlView.bottomView.hidden = NO;
+        self.videoControlView.playerStatusButton.hidden = NO;
+        self.videoControlView.toNavigationView.hidden = NO;
         
        [UIApplication  sharedApplication].statusBarHidden = YES;
         
     }else if(videoDisplay==ScreenMinDisplay) {
-        self.videoControlView.bottomViewShow = NO;
-        self.videoControlView.toNavigationShow = NO;
+        self.videoControlView.bottomView.hidden = YES;
+         self.videoControlView.playerStatusButton.hidden = YES;
+        self.videoControlView.toNavigationView.hidden = YES;
         
         [UIApplication sharedApplication].statusBarHidden = NO;
     }else{
-        self.videoControlView.bottomViewShow = YES;
-        self.videoControlView.toNavigationShow = NO;
+        self.videoControlView.bottomView.hidden = NO;
+         self.videoControlView.playerStatusButton.hidden = NO;
+        self.videoControlView.toNavigationView.hidden = YES;
         [UIApplication sharedApplication].statusBarHidden = NO;
         
     }
@@ -84,6 +87,7 @@
         return;
     }
 
+   
     [self removeFromSuperview];
     
     self.transform = CGAffineTransformIdentity;
@@ -96,9 +100,11 @@
     
     self.playerLayer.frame = self.bounds;
     
+    self.videoDisplay = ScreenMinDisplay;
+    
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
-    self.videoDisplay = ScreenMinDisplay;
+   
     
     self.isScreenBottom = YES;
 }

@@ -33,7 +33,7 @@
         [self initSubView];
         [self makeConstraints];
         self.bottomViewShow = YES;
-        self.toNavigationShow = NO;
+        
         
     }
     
@@ -246,6 +246,7 @@
     if (!_toNavigationView) {
         
         _toNavigationView = [UIView new];
+        _toNavigationView.alpha = 0;
     }
     
     return _toNavigationView;
