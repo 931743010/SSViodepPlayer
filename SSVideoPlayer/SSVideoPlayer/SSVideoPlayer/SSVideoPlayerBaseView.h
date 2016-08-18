@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerState) {
 @interface SSVideoPlayerBaseView : UIView
 
 @property(nonatomic,assign)BOOL isScreenBottom;//是否在底部显示
+@property(nonatomic,assign)BOOL isStartPlayer;//是否已经播放
 
 @property(nonatomic,strong)AVPlayerItem     * playerItem;
 @property(nonatomic,strong)AVPlayerLayer    * playerLayer;

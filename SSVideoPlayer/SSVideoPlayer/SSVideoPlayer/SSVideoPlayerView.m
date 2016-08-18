@@ -344,6 +344,10 @@
 -(void)sliderEndAction:(UISlider *)slider
 {
 
+    
+    if (!self.isStartPlayer) {
+        return;
+    }
     [super seekTimeWithSecton:slider.value completionHandler:^(BOOL finished) {
         self.sliderUpdate = NO;
         

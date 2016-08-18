@@ -13,6 +13,7 @@
 @property(nonatomic,assign)CGFloat tableCellHeight;
 @property(nonatomic,strong)NSTimer * timer;
 
+
 @end
 
 @implementation SSVideoPlayerBaseView
@@ -68,6 +69,7 @@
         if ([playerItem status]==AVPlayerStatusReadyToPlay) {
             
             self.palyerState = SSVideo_Playing;
+            self.isStartPlayer = YES;
             [self playerInterval];
             
         }else if ([playerItem status]==AVPlayerItemStatusFailed){
@@ -286,6 +288,7 @@
     self.playerLayer = nil;
     self.player = nil;
     self.isScreenBottom = NO;
+    self.isStartPlayer = NO;
     [self.playerItem removeObserver:self forKeyPath:@"status"];
     [self.playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
     [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
