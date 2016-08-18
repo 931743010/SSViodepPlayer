@@ -272,7 +272,7 @@
     self.indexPath      =  indexPath;
     self.tableCellHeight = cell.frame.size.height;
     
-    self.palyerState = SSVideo_Bufferinng;
+
     self.deviceOrientation = OrientationPortrait;
  
 }

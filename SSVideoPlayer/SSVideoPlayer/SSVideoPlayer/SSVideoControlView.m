@@ -54,6 +54,7 @@
     [self addSubview:self.bottomView];
     [self addSubview:self.toNavigationView];
     [self addSubview:self.playerStatusButton];
+    [self addSubview:self.activity];
     [self.bottomView addSubview:self.currentTimeLabel];
     [self.bottomView addSubview:self.totalTimeLable];
     [self.bottomView addSubview:self.cacheProgressView];
@@ -65,9 +66,19 @@
     [self.toNavigationView addSubview:self.ssvideoBackView];
     [self.ssvideoBackView addSubview:self.ssvideoBackButton];
     
+    [self.activity stopAnimating];
+    
 }
 -(void)makeConstraints
 {
+    
+    [self.activity mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.center.equalTo(self);
+        
+    }];
+    
+    
     [self.closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
     
         make.width.height.mas_offset(30);
@@ -309,6 +320,14 @@
     return _closeButton;
 }
 
+- (UIActivityIndicatorView *)activity
+{
+    
+    if (!_activity) {
+        _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    }
+    return _activity;
+}
 
 #pragma mark 进度条开始滑动
 -(void)beginSliderAction:(UISlider*) slider

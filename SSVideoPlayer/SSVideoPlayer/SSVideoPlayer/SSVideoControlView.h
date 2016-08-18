@@ -47,6 +47,8 @@
 @property(nonatomic,strong)UIButton * playerStatusButton;
 
 @property(nonatomic,strong)UIButton * closeButton;
+//旋转菊花
+@property (nonatomic, strong) UIActivityIndicatorView *activity;
 
 @property(nonatomic,assign) id<SSVideoControlViewDelegate> delegate;
 

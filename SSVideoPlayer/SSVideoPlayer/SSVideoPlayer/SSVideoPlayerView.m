@@ -60,6 +60,8 @@
 -(void)setPalyerState:(VideoPlayerState)palyerState
 {
     [super setPalyerState:palyerState];
+    palyerState==SSVideo_Bufferinng ? [self.videoControlView.activity startAnimating] : [self.videoControlView.activity stopAnimating];
+    
     
     
 }
@@ -204,6 +206,8 @@
     [self videoControlView];
     
     [self createAutoHideTimer];
+    
+    self.palyerState = SSVideo_Bufferinng;
 }
 
 //创建计时器
