@@ -216,8 +216,6 @@
 //开始播放
 -(void)startVideoPlayer:(NSString*) videoUrl
 {
-    
-    self.videoDisplay = ScreenCellDisplay;
     self.videoUrl = videoUrl;
     
     [self createAutoHideTimer];
@@ -230,6 +228,8 @@
 -(void)initVideoPlayerWithView:(UIView *)view tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
 {
     //判断当前的播放器是否初始化
+    self.videoDisplay = ScreenCellDisplay;
+    
     if (![self.indexPath isEqual:indexPath]) {
         
         if (self.playerLayer) {
