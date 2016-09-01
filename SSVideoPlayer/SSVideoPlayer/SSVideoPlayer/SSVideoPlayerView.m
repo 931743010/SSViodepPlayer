@@ -219,9 +219,6 @@
 //视频从cell上进入详情播放页面
 -(void)initVideoPlayerWithView:(UIView *)view
 {
-    
-    
-
     self.isDetailPlayer = YES;
     
     self.detailView = view;
@@ -231,7 +228,7 @@
 }
 
 
-//创建计时器
+//创建计时器 用于 videoControView 的显示与隐藏
 -(void)createAutoHideTimer
 {
     if (self.timer) {
