@@ -216,13 +216,14 @@
 //开始播放
 -(void)startVideoPlayer:(NSString*) videoUrl
 {
-    self.videoUrl = videoUrl;
     
-    [self videoControlView];
+    self.videoDisplay = ScreenCellDisplay;
+    self.videoUrl = videoUrl;
     
     [self createAutoHideTimer];
     
     self.palyerState = SSVideo_Bufferinng;
+
 }
 
 //视频从cell上进入详情播放页面
