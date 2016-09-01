@@ -74,13 +74,13 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-     [self.videoPlayer pushDetailView];
+    
     
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-   
+    [self.videoPlayer pushDetailView];
     
 }
 

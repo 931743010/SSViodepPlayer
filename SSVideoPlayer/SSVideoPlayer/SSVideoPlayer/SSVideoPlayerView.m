@@ -240,7 +240,6 @@
 -(void)startVideoPlayer:(NSString*) videoUrl
 {
     self.videoUrl = videoUrl;
-    
     [self createAutoHideTimer];
     
     self.palyerState = SSVideo_Bufferinng;
@@ -320,8 +319,6 @@
     self.isDetailPlayer = NO;
     UIImageView * imageView = [self currentPlayerImageView];
     [self addSSVideoPlayerView:imageView];
-    
-    //重新加载 vieoControlView  矫正位置
     [self correctVieoControlView];
 }
 
@@ -347,8 +344,8 @@
 -(void)resetAction
 {
     [super resetVideoPlayer];
-    [self.videoControlView removeFromSuperview];
-    self.videoControlView = nil;
+    [_videoControlView removeFromSuperview];
+    _videoControlView = nil;
     [self cancleAutoTimer];
     [self removeFromSuperview];
     
@@ -496,7 +493,7 @@
 //矫正 vieoControlView
 -(void)correctVieoControlView
 {
-    self.videoControlView.frame = self.playerLayer.frame;
+    _videoControlView.frame = self.playerLayer.frame;
 }
 
 -(SSVideoControlView*)videoControlView
