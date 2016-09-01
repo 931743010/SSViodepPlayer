@@ -7,6 +7,8 @@
 //
 
 #import "VideoTableCell.h"
+#import "Masonry.h"
+#import "SSVideoPlayerBaseView.h"
 
 @implementation VideoTableCell
 
@@ -20,18 +22,32 @@
     UITapGestureRecognizer *  tapImageView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImage)];
    
     [self.VideoImageView addGestureRecognizer:tapImageView];
+    UIButton * playerButton = [UIButton new];
+    [playerButton addTarget:self action:@selector(playerAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.VideoImageView addSubview:playerButton];
+    [playerButton setImage:[UIImage imageNamed:SSVideoImageName(@"SSVideo_player")] forState:UIControlStateNormal];
+    [playerButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(self.contentView);
+        make.size.mas_offset(CGSizeMake(59, 59));
+        
+    }];
 }
 -(void)setIndexPath:(NSIndexPath *)indexPath
 {
     _indexPath = indexPath;
     self.VideoImageView.tag = 1000+indexPath.row;
 }
--(void)tapImage
+-(void)playerAction
 {
     if ([self.delegate respondsToSelector:@selector(didSelectVideoWithIndexPath:)]) {
         
         [self.delegate performSelector:@selector(didSelectVideoWithIndexPath:) withObject:self.indexPath];
     }
+}
+
+-(void)tapImage
+{
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

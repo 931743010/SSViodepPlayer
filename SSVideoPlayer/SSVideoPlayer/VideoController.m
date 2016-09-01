@@ -33,7 +33,7 @@
     self.videoView.frame = CGRectMake(0, 64, self.view.frame.size.width, 200);
     
      self.videoPlayer = [SSVideoPlayerView shareSSVideoPlayerManager];
-    
+    self.videoPlayer.autoPlayerDeatil = NO;
     self.videoPlayer.delegate = self;
     
     UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:self.indexPath];

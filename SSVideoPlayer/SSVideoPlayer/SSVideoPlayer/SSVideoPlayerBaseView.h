@@ -59,6 +59,8 @@ typedef NS_ENUM(NSInteger,VideoPlayerState) {
 
 @property(nonatomic,strong)UIView                 * detailView;//详情播放的view
 
+@property(nonatomic,assign)BOOL                     autoPlayerDeatil;//进入详情页面是否自动播放
+
 @property(nonatomic,assign)DeviceOrientation  deviceOrientation;
 @property(nonatomic,assign)VideoPlayerDisplay videoDisplay;
 @property(nonatomic,assign)VideoPlayerState   palyerState;

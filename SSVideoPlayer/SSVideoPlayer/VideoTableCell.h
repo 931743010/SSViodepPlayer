@@ -15,6 +15,7 @@
 @end
 
 @interface VideoTableCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *VideoImageView;
 @property (nonatomic,strong) NSIndexPath * indexPath;
