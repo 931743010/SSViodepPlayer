@@ -120,11 +120,21 @@
     
 }
 
+-(void)didSelectImageViewWitnIndexPath:(NSIndexPath *)indexPath
+{
+     [self pushVideoController:self.tableView indexPath:indexPath];
+    
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-     NSDictionary * dic = [self.dataSourceMutableArray objectAtIndex:indexPath.row];
-     NSString * url = [dic valueForKey:@"mp4_url"];
+    [self pushVideoController:tableView indexPath:indexPath];
+    
+}
+-(void)pushVideoController:(UITableView*) tableView indexPath:(NSIndexPath*) indexPath
+{
+    NSDictionary * dic = [self.dataSourceMutableArray objectAtIndex:indexPath.row];
+    NSString * url = [dic valueForKey:@"mp4_url"];
     
     VideoController * videoController = [[VideoController alloc] init];
     
@@ -134,7 +144,6 @@
     videoController.indexPath = indexPath;
     
     [self.navigationController pushViewController:videoController animated:YES];
-    
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

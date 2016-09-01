@@ -48,6 +48,11 @@
 -(void)tapImage
 {
    
+    if ([self.delegate respondsToSelector:@selector(didSelectImageViewWitnIndexPath:)]) {
+        
+        [self.delegate performSelector:@selector(didSelectImageViewWitnIndexPath:) withObject:self.indexPath]
+        ;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

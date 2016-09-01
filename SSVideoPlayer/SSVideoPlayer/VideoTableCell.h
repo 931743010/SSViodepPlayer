@@ -11,6 +11,7 @@
 @protocol VideoTableCellDelegate <NSObject>
 
 -(void)didSelectVideoWithIndexPath:(NSIndexPath*) indexPath;
+-(void)didSelectImageViewWitnIndexPath:(NSIndexPath*) indexPath;
 
 @end
 
