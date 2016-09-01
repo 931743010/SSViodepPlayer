@@ -10,7 +10,7 @@
 #import "Masonry.h"
 #import "SSVideoPlayerView.h"
 
-@interface VideoController ()
+@interface VideoController ()<SSVideoPlayerViewDelegate>
 @property(nonatomic,strong)UIView * videoView;
 @property(nonatomic,strong)SSVideoPlayerView * videoPlayer;
 @end
@@ -31,8 +31,14 @@
     
      self.videoPlayer = [SSVideoPlayerView shareSSVideoPlayerManager];
     
+    self.videoPlayer.delegate = self;
+    
     [self.videoPlayer initVideoPlayerWithView:self.videoView];
     
+}
+-(void)goBackSSVideoPlayerView
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

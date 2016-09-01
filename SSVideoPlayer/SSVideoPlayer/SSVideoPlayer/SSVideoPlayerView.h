@@ -10,6 +10,11 @@
 
 #import "SSVideoPlayerBaseView.h"
 
+@protocol SSVideoPlayerViewDelegate <NSObject>
+
+-(void)goBackSSVideoPlayerView;
+
+@end
 
 @interface SSVideoPlayerView : SSVideoPlayerBaseView
 
@@ -18,6 +23,9 @@
 +(SSVideoPlayerView*) shareSSVideoPlayerManager;
 
 @property(nonatomic,strong)UIImageView * tempImageView;
+@property(nonatomic,assign) id<SSVideoPlayerViewDelegate> delegate;
+
+
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
 -(void)pushDetailView;
 

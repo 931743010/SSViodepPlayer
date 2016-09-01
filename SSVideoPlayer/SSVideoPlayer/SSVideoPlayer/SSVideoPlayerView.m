@@ -185,6 +185,12 @@
             complate();
         }
     }];
+    
+    if (self.isDetailPlayer) {
+        
+        [self addSSVideoPlayerDetailView:self.detailView];
+        return;
+    }
  
     UIImageView * imageView = [self currentPlayerImageView];
     [self addSSVideoPlayerView:imageView];
@@ -335,6 +341,7 @@
     self.videoControlView.currentTimeLabel.text = [self timePlayerString:currentTime];
     self.videoControlView.totalTimeLable.text  = [self timePlayerString:totalTime];
 }
+//播放结束
 -(void)moviePlayDidEnd:(NSNotification *)notification
 {
     
@@ -367,6 +374,17 @@
 #pragma mark 返回按钮事件
 -(void)goBackAction
 {
+    //如果需要的话
+    if (self.isDetailPlayer && self.deviceOrientation ==OrientationPortrait ) {
+        
+        
+        if ([self.delegate respondsToSelector:@selector(goBackSSVideoPlayerView)]) {
+            [self.delegate performSelector:@selector(goBackSSVideoPlayerView)];
+        }
+        return;
+    }
+    
+    
     if (self.videoDisplay) {
         [super setInterfaceOrientation:UIInterfaceOrientationPortrait];
     }
