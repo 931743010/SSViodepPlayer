@@ -240,8 +240,8 @@
     }
     
     [super initVideoPlayerWithView:view tableView:tableView cell:cell indexPath:indexPath url:videoUrl];
-    
     [self addSubViewPlayerView:view];
+    
 }
 //添加视频播放器到 view上
 -(void)addSubViewPlayerView:(UIView*) view
