@@ -63,7 +63,7 @@
 
 -(void)playerAction
 {
-    
+    [self.videoPlayer startVideoPlayerInDetailViewWithUrl:self.url];
 }
 
 -(void)goBackSSVideoPlayerView

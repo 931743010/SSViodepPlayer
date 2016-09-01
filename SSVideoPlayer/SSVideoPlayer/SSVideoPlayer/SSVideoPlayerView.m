@@ -218,7 +218,6 @@
 -(void)initVideoPlayerWithView:(UIImageView *)imageView tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
 {
     
-    
     if (![self.indexPath isEqual:indexPath]) {
         
             //判断当前的播放器是否初始化
@@ -226,13 +225,16 @@
             
             [self resetVideoPlayer];
         }
-            [self startVideoPlayer:videoUrl];
-  
+         [self startVideoPlayer:videoUrl];
+       
     }
     
-    [super initVideoPlayerWithView:imageView tableView:tableView cell:cell indexPath:indexPath url:videoUrl];
- 
-    [self addSubViewPlayerView:imageView];
+     [super initVideoPlayerWithView:imageView tableView:tableView cell:cell indexPath:indexPath url:videoUrl];
+    
+     [self addSubViewPlayerView:imageView];
+   
+    
+    
    
     
 }
@@ -253,6 +255,13 @@
     [self removeFromSuperview];
     
     [self addSSVideoPlayerDetailView:imageView];
+}
+-(void)startVideoPlayerInDetailViewWithUrl:(NSString *)url
+{
+    [self startVideoPlayer:url];
+    [self addSSVideoPlayerView:self.detailView];
+    
+    
 }
 
 

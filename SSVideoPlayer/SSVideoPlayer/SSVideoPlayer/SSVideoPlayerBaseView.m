@@ -308,10 +308,14 @@
     
     self.playerItem = nil;
     
+    if (self.isDetailPlayer) {
+        
+        return;
+    }
+    
     self.tableViewCell = nil;
     self.tableView = nil;
     self.indexPath = nil;
-    self.detailView = nil;
     
 }
 -(void)play{
