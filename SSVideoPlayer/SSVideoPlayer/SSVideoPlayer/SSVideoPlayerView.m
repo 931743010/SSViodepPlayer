@@ -189,6 +189,9 @@
     if (self.isDetailPlayer) {
         
         [self addSSVideoPlayerDetailView:self.detailView];
+        
+        self.videoDisplay = ScreenCellDisplay;
+        
         return;
     }
  
