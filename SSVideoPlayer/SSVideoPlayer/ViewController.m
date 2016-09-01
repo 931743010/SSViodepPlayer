@@ -135,10 +135,12 @@
 {
     NSDictionary * dic = [self.dataSourceMutableArray objectAtIndex:indexPath.row];
     NSString * url = [dic valueForKey:@"mp4_url"];
+    NSString * coverUrl = [dic valueForKey:@"cover"];
     
     VideoController * videoController = [[VideoController alloc] init];
     
     videoController.url = url;
+    videoController.coverUrl = coverUrl;
     videoController.tableView = tableView;
     
     videoController.indexPath = indexPath;

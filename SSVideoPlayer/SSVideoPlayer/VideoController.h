@@ -12,5 +12,6 @@
 @interface VideoController : UIViewController
 @property(nonatomic,strong)NSIndexPath * indexPath;
 @property(nonatomic,strong)NSString    * url;
+@property(nonatomic,strong)NSString    * coverUrl;
 @property(nonatomic,strong)UITableView * tableView;
 @end

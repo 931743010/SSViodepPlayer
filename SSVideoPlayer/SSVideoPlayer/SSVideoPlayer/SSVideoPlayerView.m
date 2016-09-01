@@ -213,24 +213,15 @@
     
     
 }
-//开始播放
--(void)startVideoPlayer:(NSString*) videoUrl
-{
-    self.videoUrl = videoUrl;
-    
-    [self createAutoHideTimer];
-    
-    self.palyerState = SSVideo_Bufferinng;
-
-}
 
 //视频从cell上进入详情播放页面
--(void)initVideoPlayerWithView:(UIView *)view tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
+-(void)initVideoPlayerWithView:(UIImageView *)imageView tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
 {
-    //判断当前的播放器是否初始化
+    
     
     if (![self.indexPath isEqual:indexPath]) {
         
+            //判断当前的播放器是否初始化
         if (self.playerLayer) {
             
             [self resetVideoPlayer];
@@ -239,18 +230,30 @@
   
     }
     
-    [super initVideoPlayerWithView:view tableView:tableView cell:cell indexPath:indexPath url:videoUrl];
-    [self addSubViewPlayerView:view];
+    [super initVideoPlayerWithView:imageView tableView:tableView cell:cell indexPath:indexPath url:videoUrl];
+ 
+    [self addSubViewPlayerView:imageView];
+   
+    
+}
+//开始播放
+-(void)startVideoPlayer:(NSString*) videoUrl
+{
+    self.videoUrl = videoUrl;
+    
+    [self createAutoHideTimer];
+    
+    self.palyerState = SSVideo_Bufferinng;
     
 }
 //添加视频播放器到 view上
--(void)addSubViewPlayerView:(UIView*) view
+-(void)addSubViewPlayerView:(UIImageView*) imageView
 {
     self.isDetailPlayer = YES;
-    self.detailView = view;
+    self.detailView = imageView;
     [self removeFromSuperview];
     
-    [self addSSVideoPlayerDetailView:view];
+    [self addSSVideoPlayerDetailView:imageView];
 }
 
 
@@ -300,7 +303,7 @@
     
 }
 //添加播放器到详情view上进行播放
--(void)addSSVideoPlayerDetailView:(UIView*) view
+-(void)addSSVideoPlayerDetailView:(UIImageView*) view
 {
     [view addSubview:self];
     [view bringSubviewToFront:self];
@@ -336,6 +339,8 @@
     
     [self resetAction];
     
+   
+    
     
    
 }
@@ -368,7 +373,7 @@
 //播放结束
 -(void)moviePlayDidEnd:(NSNotification *)notification
 {
-    
+   
     [self resetVideoPlayer];
 }
 

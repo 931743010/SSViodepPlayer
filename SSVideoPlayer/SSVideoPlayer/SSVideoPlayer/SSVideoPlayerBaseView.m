@@ -261,7 +261,7 @@
     }
 }
 
--(void)initVideoPlayerWithView:(UIView *)view tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
+-(void)initVideoPlayerWithView:(UIImageView *)imageView tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
 {
     self.tableView      =  tableView;
     self.tableViewCell  =  cell;
@@ -311,6 +311,7 @@
     self.tableViewCell = nil;
     self.tableView = nil;
     self.indexPath = nil;
+    self.detailView = nil;
     
 }
 -(void)play{

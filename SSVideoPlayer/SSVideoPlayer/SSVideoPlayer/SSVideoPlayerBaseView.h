@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerState) {
 @property(nonatomic,strong)UITableViewCell        * tableViewCell;
 @property(nonatomic,strong)NSIndexPath            * indexPath;
 
-@property(nonatomic,strong)UIView                 * detailView;//详情播放的view
+@property(nonatomic,strong)UIImageView                 * detailView;//详情播放的view
 
 @property(nonatomic,assign)BOOL                     autoPlayerDeatil;//进入详情页面是否自动播放
 
@@ -87,7 +87,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerState) {
 
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
 
--(void)initVideoPlayerWithView:(UIView *)view tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl;
+-(void)initVideoPlayerWithView:(UIImageView *)imageView tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl;
 
 
 
