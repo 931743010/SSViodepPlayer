@@ -13,11 +13,13 @@
 #import "VideoDataCenter.h"
 #import "MJRefresh.h"
 #import "UIKit+AFNetworking.h"
+#import "VideoController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,VideoTableCellDelegate>
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataSourceMutableArray;
 @property(nonatomic,strong)VideoDataCenter * dataCenter;
+@property(nonatomic,strong)SSVideoPlayerView * videoPlayer;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,assign)BOOL isRefreshing;
 @end
@@ -121,6 +123,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    VideoController * videoController = [[VideoController alloc] init];
+    [self.navigationController pushViewController:videoController animated:YES];
     
 }
 

@@ -185,7 +185,7 @@
             complate();
         }
     }];
-    
+ 
     UIImageView * imageView = [self currentPlayerImageView];
     [self addSSVideoPlayerView:imageView];
    
@@ -209,6 +209,21 @@
     
     self.palyerState = SSVideo_Bufferinng;
 }
+
+//视频从cell上进入详情播放页面
+-(void)initVideoPlayerWithView:(UIView *)view
+{
+    
+    
+
+    self.isDetailPlayer = YES;
+    
+    self.detailView = view;
+    [self removeFromSuperview];
+    
+    [self addSSVideoPlayerDetailView:view];
+}
+
 
 //创建计时器
 -(void)createAutoHideTimer
@@ -255,6 +270,29 @@
     self.playerLayer.frame = self.frame;
     
 }
+//添加播放器到详情view上进行播放
+-(void)addSSVideoPlayerDetailView:(UIView*) view
+{
+    [view addSubview:self];
+    [view bringSubviewToFront:self];
+    self.frame = view.bounds;
+    self.playerLayer.frame = self.frame;
+    
+    //重新加载 vieoControlView  矫正位置
+    [self correctVieoControlView];
+}
+
+//从详情页面推出 回到cell上继续播放
+-(void)pushDetailView
+{
+    UIImageView * imageView = [self currentPlayerImageView];
+    [self addSSVideoPlayerView:imageView];
+    
+    //重新加载 vieoControlView  矫正位置
+    [self correctVieoControlView];
+}
+
+
 //重置播放器
 -(void)resetVideoPlayer
 {
@@ -406,6 +444,12 @@
     //暂停的时候  不隐藏
     [self cancleAutoTimer];
    
+}
+
+//矫正 vieoControlView
+-(void)correctVieoControlView
+{
+    self.videoControlView.frame = self.playerLayer.frame;
 }
 
 -(SSVideoControlView*)videoControlView

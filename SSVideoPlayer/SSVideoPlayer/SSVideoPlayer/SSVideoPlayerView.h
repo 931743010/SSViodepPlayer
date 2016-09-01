@@ -19,5 +19,6 @@
 
 @property(nonatomic,strong)UIImageView * tempImageView;
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
+-(void)pushDetailView;
 
 @end

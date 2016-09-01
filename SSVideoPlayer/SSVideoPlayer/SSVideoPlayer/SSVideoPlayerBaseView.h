@@ -27,7 +27,6 @@ typedef NS_ENUM(NSInteger,VideoPlayerDisplay) {
     ScreenCellDisplay,//cell
     ScreenFullDisplay,//全屏
     ScreenMinDisplay//最小化
-    
 };
 
 //视频播放状态
@@ -42,6 +41,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerState) {
 
 @property(nonatomic,assign)BOOL isScreenBottom;//是否在底部显示
 @property(nonatomic,assign)BOOL isStartPlayer;//是否已经播放
+@property(nonatomic,assign)BOOL isDetailPlayer;//是否为详情播放
 
 @property(nonatomic,strong)AVPlayerItem     * playerItem;
 @property(nonatomic,strong)AVPlayerLayer    * playerLayer;
@@ -56,6 +56,8 @@ typedef NS_ENUM(NSInteger,VideoPlayerState) {
 @property(nonatomic,strong)UITableView            * tableView;
 @property(nonatomic,strong)UITableViewCell        * tableViewCell;
 @property(nonatomic,strong)NSIndexPath            * indexPath;
+
+@property(nonatomic,strong)UIView                 * detailView;//详情播放的view
 
 @property(nonatomic,assign)DeviceOrientation  deviceOrientation;
 @property(nonatomic,assign)VideoPlayerDisplay videoDisplay;
@@ -82,4 +84,10 @@ typedef NS_ENUM(NSInteger,VideoPlayerState) {
 -(void)sliderProgressWithCurrentTime:(CGFloat) currentTime totalTime:(CGFloat)totalTime;
 
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
+
+-(void)initVideoPlayerWithView:(UIView*) view;
+
+
+
+
 @end

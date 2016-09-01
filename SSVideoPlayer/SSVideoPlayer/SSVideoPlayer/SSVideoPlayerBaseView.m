@@ -152,7 +152,7 @@
     self.player = [AVPlayer playerWithPlayerItem:_playerItem];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    
+ 
     self.playerLayer.frame = self.layer.bounds;
     [self.layer addSublayer:_playerLayer];
     
@@ -277,6 +277,11 @@
 
     self.deviceOrientation = OrientationPortrait;
  
+}
+-(void)initVideoPlayerWithView:(UIView*) view
+{
+    
+    
 }
 
 -(void)resetVideoPlayer
