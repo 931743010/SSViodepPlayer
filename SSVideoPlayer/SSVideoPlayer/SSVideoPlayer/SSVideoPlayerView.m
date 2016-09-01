@@ -209,7 +209,13 @@
     UIImageView * imageView = [self currentPlayerImageView];
     
     [self addSSVideoPlayerView:imageView];
+    [self startVideoPlayer:videoUrl];
     
+    
+}
+//开始播放
+-(void)startVideoPlayer:(NSString*) videoUrl
+{
     self.videoUrl = videoUrl;
     
     [self videoControlView];
@@ -220,22 +226,26 @@
 }
 
 //视频从cell上进入详情播放页面
--(void)initVideoPlayerWithView:(UIView *)view indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
+-(void)initVideoPlayerWithView:(UIView *)view tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
 {
-    
     //判断当前的播放器是否初始化
-    
-    
     if (![self.indexPath isEqual:indexPath]) {
         
         if (self.playerLayer) {
             
             [self resetVideoPlayer];
         }
+            [self startVideoPlayer:videoUrl];
+  
     }
     
+    [super initVideoPlayerWithView:view tableView:tableView cell:cell indexPath:indexPath url:videoUrl];
     
-    
+    [self addSubViewPlayerView:view];
+}
+//添加视频播放器到 view上
+-(void)addSubViewPlayerView:(UIView*) view
+{
     self.isDetailPlayer = YES;
     self.detailView = view;
     [self removeFromSuperview];

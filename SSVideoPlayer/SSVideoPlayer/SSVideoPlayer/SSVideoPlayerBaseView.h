@@ -85,7 +85,7 @@ typedef NS_ENUM(NSInteger,VideoPlayerState) {
 
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl;
 
--(void)initVideoPlayerWithView:(UIView *)view indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl;
+-(void)initVideoPlayerWithView:(UIView *)view tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl;
 
 
 

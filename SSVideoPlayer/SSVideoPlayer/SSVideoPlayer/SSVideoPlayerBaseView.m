@@ -259,8 +259,15 @@
 
         self.MP2 = M_PI_2;
     }
-  
-    
+}
+
+-(void)initVideoPlayerWithView:(UIView *)view tableView:(UITableView*) tableView cell:(UITableViewCell*)cell  indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
+{
+    self.tableView      =  tableView;
+    self.tableViewCell  =  cell;
+    self.indexPath      =  indexPath;
+    self.tableCellHeight = cell.frame.size.height;
+    self.deviceOrientation = OrientationPortrait;
     
 }
 -(void)initViewWithTableView:(UITableView*) tableView cell:(UITableViewCell*) cell indexPath:(NSIndexPath*) indexPath videoUrl:(NSString*) videoUrl
@@ -278,10 +285,7 @@
     self.deviceOrientation = OrientationPortrait;
  
 }
--(void)initVideoPlayerWithView:(UIView *)view indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
-{
-    
-}
+
 
 -(void)resetVideoPlayer
 {

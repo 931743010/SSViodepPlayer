@@ -129,6 +129,7 @@
     VideoController * videoController = [[VideoController alloc] init];
     
     videoController.url = url;
+    videoController.tableView = tableView;
     
     videoController.indexPath = indexPath;
     

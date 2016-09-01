@@ -36,7 +36,9 @@
     
     self.videoPlayer.delegate = self;
     
-    [self.videoPlayer initVideoPlayerWithView:self.videoView indexPath:self.indexPath url:self.url];
+    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
+    
+    [self.videoPlayer initVideoPlayerWithView:self.videoView tableView:self.tableView cell:cell indexPath:self.indexPath url:self.url];
     
     
 }
