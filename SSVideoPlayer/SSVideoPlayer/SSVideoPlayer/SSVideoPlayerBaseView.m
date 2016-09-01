@@ -278,9 +278,8 @@
     self.deviceOrientation = OrientationPortrait;
  
 }
--(void)initVideoPlayerWithView:(UIView*) view
+-(void)initVideoPlayerWithView:(UIView *)view indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
 {
-    
     
 }
 

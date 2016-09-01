@@ -220,10 +220,23 @@
 }
 
 //视频从cell上进入详情播放页面
--(void)initVideoPlayerWithView:(UIView *)view
+-(void)initVideoPlayerWithView:(UIView *)view indexPath:(NSIndexPath*) indexPath url:(NSString*) videoUrl
 {
-    self.isDetailPlayer = YES;
     
+    //判断当前的播放器是否初始化
+    
+    
+    if (![self.indexPath isEqual:indexPath]) {
+        
+        if (self.playerLayer) {
+            
+            [self resetVideoPlayer];
+        }
+    }
+    
+    
+    
+    self.isDetailPlayer = YES;
     self.detailView = view;
     [self removeFromSuperview];
     

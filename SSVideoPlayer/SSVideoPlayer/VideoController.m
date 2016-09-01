@@ -26,6 +26,9 @@
 -(void)initVideoView
 {
     self.videoView = [UIView new];
+    
+    self.videoView.backgroundColor = [UIColor yellowColor];
+    
     [self.view addSubview:self.videoView];
     self.videoView.frame = CGRectMake(0, 64, self.view.frame.size.width, 200);
     
@@ -33,7 +36,8 @@
     
     self.videoPlayer.delegate = self;
     
-    [self.videoPlayer initVideoPlayerWithView:self.videoView];
+    [self.videoPlayer initVideoPlayerWithView:self.videoView indexPath:self.indexPath url:self.url];
+    
     
 }
 -(void)goBackSSVideoPlayerView

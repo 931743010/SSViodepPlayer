@@ -123,7 +123,15 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+     NSDictionary * dic = [self.dataSourceMutableArray objectAtIndex:indexPath.row];
+     NSString * url = [dic valueForKey:@"mp4_url"];
+    
     VideoController * videoController = [[VideoController alloc] init];
+    
+    videoController.url = url;
+    
+    videoController.indexPath = indexPath;
+    
     [self.navigationController pushViewController:videoController animated:YES];
     
 }
