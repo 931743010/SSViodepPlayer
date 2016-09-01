@@ -291,6 +291,7 @@
 //从详情页面推出 回到cell上继续播放
 -(void)pushDetailView
 {
+    self.isDetailPlayer = NO;
     UIImageView * imageView = [self currentPlayerImageView];
     [self addSSVideoPlayerView:imageView];
     
